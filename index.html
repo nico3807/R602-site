@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R602 - TP Prompting - Accueil</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>R602</h1>
+          <p class="subtitle">Prompter une IA pour coder</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="methode.html">Méthode CRTFC</a></li>
+            <li><a href="exercices-web.html">Exercices Web</a></li>
+            <li><a href="exercices-dispositifs.html">Dispositifs</a></li>
+            <li><a href="copilot-avance.html">Copilot Avancé</a></li>
+            <li><a href="synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <!-- Section Introduction -->
+        <section class="hero">
+          <div class="hero-content">
+            <h2>De la requête vague au résultat professionnel</h2>
+            <p>
+              Apprenez à prompter une IA pour générer du code de qualité
+              production
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">Durée : 3 heures</span>
+              <span class="meta-item">Niveau : BUT3 MMI</span>
+              <span class="meta-item">IUT Béziers</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section : Introduction -->
+        <section class="content-section">
+          <h2>L'IA ne lit pas dans vos pensées</h2>
+          <div class="text-content">
+            <p>
+              Les outils comme <strong>GitHub Copilot</strong>,
+              <strong>Claude</strong> ou <strong>ChatGPT</strong> sont capables
+              de générer du code impressionnant… à condition de leur expliquer
+              correctement ce qu'on attend.
+            </p>
+            <ul class="highlight-list">
+              <li>
+                <strong>Une requête floue</strong> = code générique, hors
+                contexte, parfois inutilisable
+              </li>
+              <li>
+                <strong>Une requête précise</strong> = code directement
+                intégrable dans votre projet
+              </li>
+            </ul>
+            <p>
+              Ce TP vous fait alterner entre mauvais prompts et bons prompts sur
+              des projets concrets du parcours MMI, pour que vous voyiez par
+              vous-même la différence de résultat.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section : Le modèle mental de l'IA -->
+        <section class="content-section">
+          <h2>Comment l'IA comprend votre prompt</h2>
+          <div class="card-container">
+            <div class="concept-card">
+              <h3>Un LLM fonctionne par prédiction statistique</h3>
+              <p>
+                Il prédit le texte le plus probable en réponse à votre message,
+                basé sur des milliards d'exemples.
+              </p>
+            </div>
+            <div class="concept-card">
+              <h3>Conséquence directe</h3>
+              <p>
+                Plus votre prompt est <strong>précis et contextualisé</strong>,
+                plus l'IA peut produire un résultat utile.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section : Les 5 dimensions d'un bon prompt -->
+        <section class="content-section">
+          <h2>Les 4 ingrédients d'un bon prompt de code</h2>
+          <div class="dimensions-grid">
+            <div class="dimension-item">
+              <div class="dimension-icon">1</div>
+              <h3>Contexte</h3>
+              <p>"Je développe un site vitrine en HTML/CSS/JS vanilla..."</p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">2</div>
+              <h3>Rôle</h3>
+              <p>"Tu es un développeur front-end expert..."</p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">3</div>
+              <h3>Tâche</h3>
+              <p>"Génère une fonction qui valide un email"</p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">4</div>
+              <h3>Contraintes</h3>
+              <p>"Sans framework, ES6 uniquement, pas de jQuery"</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section : La fenêtre de contexte -->
+        <section class="content-section">
+          <h2>La fenêtre de contexte : sa mémoire limitée</h2>
+          <div class="context-box">
+            <div class="context-item sees">
+              <h4>✓ L'IA voit :</h4>
+              <ul>
+                <li>Le fichier ouvert</li>
+                <li>Vos commentaires</li>
+                <li>L'historique de la conversation</li>
+              </ul>
+            </div>
+            <div class="context-item unsees">
+              <h4>✗ L'IA ne voit pas :</h4>
+              <ul>
+                <li>Les autres fichiers de votre projet</li>
+                <li>(sauf si vous les mentionnez ou les collez)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>💡 Astuce :</strong> Décrivez la structure de votre projet
+            en début de conversation.
+          </div>
+        </section>
+
+        <!-- CTA Navigation -->
+        <section class="cta-section">
+          <h2>Commencez par apprendre la méthode</h2>
+          <div class="cta-buttons">
+            <a href="methode.html" class="btn btn-primary"
+              >Découvrir la méthode CRTFC</a
+            >
+            <a href="exercices-web.html" class="btn btn-secondary"
+              >Passer aux exercices</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - R602 Développement Web & Dispositifs
+        Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

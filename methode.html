@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La méthode CRTFC - R602 TP Prompting</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>R602</h1>
+          <p class="subtitle">Prompter une IA pour coder</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="methode.html" class="active">Méthode CRTFC</a></li>
+            <li><a href="exercices-web.html">Exercices Web</a></li>
+            <li><a href="exercices-dispositifs.html">Dispositifs</a></li>
+            <li><a href="copilot-avance.html">Copilot Avancé</a></li>
+            <li><a href="synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <h1>La méthode CRTFC en 5 étapes</h1>
+
+        <section class="content-section">
+          <p class="intro-text">
+            Pour rédiger un prompt efficace, appliquez la méthode
+            <strong>CRTFC</strong>. C'est un cadre simple mais puissant pour
+            structurer vos demandes à l'IA.
+          </p>
+        </section>
+
+        <!-- Tableau CRTFC -->
+        <section class="content-section">
+          <div class="table-responsive">
+            <table class="crtfc-table">
+              <thead>
+                <tr>
+                  <th>Lettre</th>
+                  <th>Signifie</th>
+                  <th>Ce que vous écrivez concrètement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="letter">C</td>
+                  <td class="meaning">Contexte</td>
+                  <td class="example">
+                    "Je développe un site vitrine HTML/CSS/JS vanilla..."
+                  </td>
+                </tr>
+                <tr>
+                  <td class="letter">R</td>
+                  <td class="meaning">Rôle</td>
+                  <td class="example">
+                    "Tu es un développeur front-end expert..."
+                  </td>
+                </tr>
+                <tr>
+                  <td class="letter">T</td>
+                  <td class="meaning">Tâche</td>
+                  <td class="example">"Génère / Explique / Corrige..."</td>
+                </tr>
+                <tr>
+                  <td class="letter">F</td>
+                  <td class="meaning">Format</td>
+                  <td class="example">"Réponds avec du code JS commenté"</td>
+                </tr>
+                <tr>
+                  <td class="letter">C</td>
+                  <td class="meaning">Contraintes</td>
+                  <td class="example">
+                    "Sans librairie externe / ES6 / Accessible WCAG AA"
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Avant/Après -->
+        <section class="content-section">
+          <h2>Exemple d'application de CRTFC</h2>
+
+          <div class="comparison-container">
+            <div class="comparison-item bad">
+              <h3>❌ Avant (prompt vague)</h3>
+              <p class="quote">"Fais un formulaire de contact"</p>
+              <div class="consequence">
+                <strong>Résultat :</strong> Code générique, sans contexte de
+                votre projet, possiblement mal structuré ou non accessible.
+              </div>
+            </div>
+
+            <div class="comparison-item good">
+              <h3>✅ Après (prompt CRTFC)</h3>
+              <div class="code-block">
+                <pre>
+"[Contexte] Je développe un site vitrine HTML/CSS/JS vanilla, page contact.html.
+
+[Rôle] Tu es un développeur front-end expert en accessibilité.
+
+[Tâche] Génère un formulaire de contact complet.
+
+[Format] Réponds uniquement avec le code HTML et le CSS associé, commenté.
+
+[Contraintes] Pas de framework, validation HTML5 native, 
+labels explicites pour l'accessibilité."</pre
+                >
+              </div>
+              <div class="consequence">
+                <strong>Résultat :</strong> Code directement utilisable, adapté
+                à votre contexte et conforme aux standards.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Utilisation avec les outils -->
+        <section class="content-section">
+          <h2>Utiliser CRTFC avec vos outils</h2>
+
+          <div class="tools-grid">
+            <div class="tool-card">
+              <h3>GitHub Copilot</h3>
+              <p>✓ Excellent pour l'autocomplétion rapide ligne par ligne</p>
+              <p>✓ Bon pour générer des fonctions complètes</p>
+              <p>✓ Parfait pour des tâches simples et rapides</p>
+            </div>
+
+            <div class="tool-card">
+              <h3>Claude Code</h3>
+              <p>✓ Fenêtre de contexte beaucoup plus grande</p>
+              <p>✓ Meilleur pour refactorer des fichiers entiers</p>
+              <p>✓ Excellente pour expliquer du code complexe</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Progression vers exercices -->
+        <section class="cta-section">
+          <h2>Prêt à appliquer CRTFC ?</h2>
+          <div class="cta-buttons">
+            <a href="exercices-web.html" class="btn btn-primary"
+              >Commencer les exercices Web</a
+            >
+            <a href="index.html" class="btn btn-secondary"
+              >Retour à l'accueil</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - R602 Développement Web & Dispositifs
+        Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synthèse - R602 TP Prompting</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>R602</h1>
+          <p class="subtitle">Prompter une IA pour coder</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="methode.html">Méthode CRTFC</a></li>
+            <li><a href="exercices-web.html">Exercices Web</a></li>
+            <li><a href="exercices-dispositifs.html">Dispositifs</a></li>
+            <li><a href="copilot-avance.html">Copilot Avancé</a></li>
+            <li><a href="synthese.html" class="active">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <h1>Synthèse — Ce qu'on retient</h1>
+
+        <!-- Anti-patterns -->
+        <section class="content-section">
+          <h2>Anti-patterns à ne plus faire</h2>
+
+          <div class="antipatterns-list">
+            <div class="antipattern">
+              <h3>❌ Le prompt en 5 mots</h3>
+              <p class="bad-example">"Fais un menu"</p>
+              <p>
+                → Utilisez toujours au minimum :
+                <strong>contexte + objectif + contrainte principale</strong>
+              </p>
+            </div>
+
+            <div class="antipattern">
+              <h3>❌ Le wall of text</h3>
+              <p>Trop de détails simultanés → l'IA perd les priorités</p>
+              <p>→ <strong>Découpez en prompts séquentiels</strong></p>
+            </div>
+
+            <div class="antipattern">
+              <h3>❌ Copier-coller sans lire</h3>
+              <p>
+                L'IA peut générer du code fonctionnel mais non-sécurisé ou avec
+                des bugs subtils
+              </p>
+              <p>→ <strong>Relisez TOUJOURS le code généré</strong></p>
+            </div>
+
+            <div class="antipattern">
+              <h3>❌ Tout dans un fichier</h3>
+              <p class="bad-example">
+                "Fais-moi un site complet avec login, dashboard, API…"
+              </p>
+              <p>→ <strong>Une fonctionnalité à la fois</strong></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Principes clés -->
+        <section class="content-section">
+          <h2>Les 5 principes clés du prompting efficace</h2>
+
+          <div class="principles-grid">
+            <div class="principle-card">
+              <div class="principle-number">1</div>
+              <h3>Soyez précis</h3>
+              <p>
+                Chaque détail compte. "Formulaire de contact" ≠ "Formulaire de
+                contact avec validation email en regex ES6"
+              </p>
+            </div>
+
+            <div class="principle-card">
+              <div class="principle-number">2</div>
+              <h3>Donnez du contexte</h3>
+              <p>
+                L'IA a besoin de savoir où votre code s'inscrit. Mentionnez
+                l'architecture générale.
+              </p>
+            </div>
+
+            <div class="principle-card">
+              <div class="principle-number">3</div>
+              <h3>Fragmentez</h3>
+              <p>
+                Un gros prompt = une réponse floue. Plusieurs petits prompts =
+                résultats précis.
+              </p>
+            </div>
+
+            <div class="principle-card">
+              <div class="principle-number">4</div>
+              <h3>Validez</h3>
+              <p>
+                Testez, relisez, mesurez. Le code généré n'est pas magique,
+                c'est une base.
+              </p>
+            </div>
+
+            <div class="principle-card">
+              <div class="principle-number">5</div>
+              <h3>Itérez</h3>
+              <p>
+                Affinez progressivement. Chaque réponse apporte du contexte pour
+                la suivante.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fiche récap -->
+        <section class="content-section">
+          <h2>Fiche récap — Templates de prompts MMI</h2>
+          <p>
+            <strong>Usage :</strong> Remplacez les parties entre [crochets]
+            selon votre projet.
+          </p>
+
+          <div class="templates-container">
+            <!-- Template 1 -->
+            <div class="template">
+              <h3>📱 Composant web (HTML/CSS/JS)</h3>
+              <div class="code-block">
+                <pre>
+"[Contexte] Je développe [type de projet] avec [technos].
+
+[Rôle] Tu es un [spécialité] expert en [domaine].
+
+[Tâche] Génère [fonctionnalité spécifique].
+
+[Format] [HTML/CSS/JS commenté / Code seul / Explique aussi]
+
+[Contraintes] [Sans framework/responsive/accessible/ES6+]"</pre
+                >
+              </div>
+            </div>
+
+            <!-- Template 2 -->
+            <div class="template">
+              <h3>🎨 Animation / Canvas / Dispositif interactif</h3>
+              <div class="code-block">
+                <pre>
+"[Contexte] Création d'une [expérience interactive].
+
+[Rôle] Tu es un [créatif technique / developer creative].
+
+[Tâche] Crée [effet visuel / interaction] avec [contraintes tech].
+
+[Format] Code commenté + explique l'approche.
+
+[Contraintes] Performance [60fps/smooth], [pas de dépendances]"</pre
+                >
+              </div>
+            </div>
+
+            <!-- Template 3 -->
+            <div class="template">
+              <h3>🐛 Débogage</h3>
+              <div class="code-block">
+                <pre>
+"Voici le code :
+[coller le code avec bug]
+
+Le problème : [décrire le symptôme]
+
+Contexte : [où ce code s'exécute]
+
+Aide-moi à trouver la cause et propose une correction."</pre
+                >
+              </div>
+            </div>
+
+            <!-- Template 4 -->
+            <div class="template">
+              <h3>♻️ Refactoring</h3>
+              <div class="code-block">
+                <pre>
+"Voici mon code :
+[coller le code]
+
+Je veux : [refactoriser / simplifier / améliorer perf]
+
+Critères : [ES6+ / lisibilité / performance]
+
+Propose une meilleure version."</pre
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist finale -->
+        <section class="content-section">
+          <h2>Checklist avant chaque prompt</h2>
+
+          <div class="checklist">
+            <label class="checkbox-item">
+              <input type="checkbox" disabled />
+              <span
+                >J'ai décrit le contexte du projet (architecture, technos)</span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" disabled />
+              <span>J'ai défini mon rôle / l'expertise attendue</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" disabled />
+              <span
+                >Ma tâche est précise et unidimensionnelle (pas plusieurs trucs
+                à la fois)</span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" disabled />
+              <span>J'ai spécifié le format de la réponse attendue</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" disabled />
+              <span
+                >J'ai listé les contraintes principales (pas de framework,
+                performance, etc.)</span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" disabled />
+              <span>Mon prompt fait moins de 150 mots (sinon, fragmente)</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Pour aller plus loin -->
+        <section class="content-section">
+          <h2>Pour aller plus loin</h2>
+
+          <div class="resources-list">
+            <div class="resource">
+              <h4>GitHub Copilot</h4>
+              <p>✓ Parfait pour l'autocomplétion rapide en développement</p>
+              <p>✓ Intégration native VSCode</p>
+            </div>
+
+            <div class="resource">
+              <h4>Claude Code</h4>
+              <p>✓ Meilleur contexte global et refactoring</p>
+              <p>✓ Explications plus détaillées</p>
+            </div>
+
+            <div class="resource">
+              <h4>ChatGPT</h4>
+              <p>✓ Interface conversationnelle</p>
+              <p>✓ Bon pour les explications pédagogiques</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="content-section conclusion">
+          <h2>🎓 Conclusion</h2>
+          <div class="conclusion-text">
+            <p>
+              <strong>Prompting n'est pas magique.</strong> C'est un craft qui
+              demande de la pratique, de la rigueur et de la réflexion.
+            </p>
+            <p>
+              <strong>La méthode CRTFC n'est pas rigide :</strong> adaptez-la à
+              votre contexte. L'important est de donner à l'IA assez
+              d'information pour générer du code utile.
+            </p>
+            <p>
+              <strong>Relisez toujours.</strong> L'IA génère une base, pas de la
+              magie. Vous êtes le développeur, elle est votre copilote.
+            </p>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <section class="cta-section">
+          <div class="cta-buttons">
+            <a href="index.html" class="btn btn-primary"
+              >Recommencer depuis le début</a
+            >
+            <a href="methode.html" class="btn btn-secondary"
+              >Revoir la méthode CRTFC</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - R602 Développement Web & Dispositifs
+        Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

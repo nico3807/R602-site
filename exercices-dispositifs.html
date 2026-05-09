@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dispositifs Interactifs - R602 TP Prompting</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>R602</h1>
+          <p class="subtitle">Prompter une IA pour coder</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="methode.html">Méthode CRTFC</a></li>
+            <li><a href="exercices-web.html">Exercices Web</a></li>
+            <li>
+              <a href="exercices-dispositifs.html" class="active"
+                >Dispositifs</a
+              >
+            </li>
+            <li><a href="copilot-avance.html">Copilot Avancé</a></li>
+            <li><a href="synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <h1>Dispositifs Interactifs</h1>
+        <p class="section-intro">
+          Créer des expériences interactives créatives et ludiques
+        </p>
+
+        <!-- EXERCICE 4 -->
+        <section class="exercise">
+          <div class="exercise-header">
+            <h2>Exercice 4 : Particules réactives à la souris</h2>
+            <span class="exercise-number">4/6</span>
+          </div>
+
+          <div class="exercise-content">
+            <h3>📋 Contexte</h3>
+            <p>
+              Vous créez une installation interactive : des particules qui
+              réagissent à la position de la souris. Projet purement front-end,
+              canvas HTML5.
+            </p>
+
+            <h3>⚠️ La piège du prompt trop long</h3>
+            <p>
+              Sur ce type de sujet créatif-technique, il existe un anti-pattern
+              : le prompt trop chargé qui noie l'essentiel.
+              <strong>Préférez la concision.</strong>
+            </p>
+
+            <h3>✅ Prompt à utiliser</h3>
+            <div class="code-block">
+              <pre>
+"[Contexte] Canvas HTML5 avec particules.
+[Rôle] Expert Canvas 2D et animations.
+[Tâche] Génère 50 particules qui repoussent à l'approche de la souris.
+[Format] HTML + CSS + JS commenté.
+[Contraintes] Smooth animations, 60fps visé."</pre
+              >
+            </div>
+
+            <h3>🔧 Affinage itératif — exemple</h3>
+            <p>
+              Une fois le premier résultat obtenu, affinez avec des prompts
+              courts qui gardent le contexte :
+            </p>
+            <div class="code-block">
+              <pre>
+"Augmente les particules à 80 et ajoute une légère traînée"
+"Rends les particules colorées avec gradient"</pre
+              >
+            </div>
+
+            <h3>🎯 À vous de jouer</h3>
+            <ul class="task-list">
+              <li>✓ Testez le rendu, ajustez la valeur 80 → 120 particules</li>
+              <li>
+                ✓ Défi : Demandez "Ajoute un mode attraction : maintenir clic
+                pour attirer les particules"
+              </li>
+              <li>
+                ✓ Défi+ : Demandez "Comment exporter ce canvas en GIF animé
+                depuis JS ?"
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- EXERCICE 5 -->
+        <section class="exercise">
+          <div class="exercise-header">
+            <h2>Exercice 5 : Capteurs simulés avec visualisation</h2>
+            <span class="exercise-number">5/6</span>
+          </div>
+
+          <div class="exercise-content">
+            <h3>📋 Contexte</h3>
+            <p>
+              Prototype d'interface pour un dispositif physique. En attendant le
+              vrai capteur, des sliders simulent les données. La visualisation
+              se met à jour en temps réel.
+            </p>
+
+            <h3>✅ Prompt avec rôle fort + données simulées</h3>
+            <div class="code-block">
+              <pre>
+"[Contexte] Interface de monitoring en temps réel.
+[Rôle] UX engineer spécialisé en data visualization.
+[Tâche] Crée 3 sliders (température, humidité, pression) 
+avec affichage circulaire en direct.
+[Format] HTML + CSS + JS, avec SVG ou Canvas.
+[Contraintes] Responsive, pas de librairie graphique externe."</pre
+              >
+            </div>
+
+            <h3>🎯 À vous de jouer</h3>
+            <ul class="task-list">
+              <li>
+                ✓ Modifiez les plages des capteurs pour coller à un vrai projet
+              </li>
+              <li>
+                ✓ Défi : Ajoutez un 4e capteur : son (0-100 dB) qui fait
+                trembler le cercle
+              </li>
+              <li>
+                ✓ Défi+ : Demandez "Connecte ces sliders à l'API Web Audio pour
+                lire le micro"
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- EXERCICE 6 -->
+        <section class="exercise">
+          <div class="exercise-header">
+            <h2>Exercice 6 : Jeu de cible avec score</h2>
+            <span class="exercise-number">6/6</span>
+          </div>
+
+          <div class="exercise-content">
+            <h3>📋 Contexte</h3>
+            <p>
+              Petite expérience interactive ludique : une cible apparaît à des
+              positions aléatoires, le joueur doit cliquer dessus le plus vite
+              possible. Score et temps moyen affichés.
+            </p>
+
+            <h3>✅ Prompt avec spécification de comportement</h3>
+            <div class="code-block">
+              <pre>
+"[Contexte] Mini-jeu interactif de clic rapide.
+[Rôle] Game designer front-end.
+[Tâche] Crée un jeu : cible circulaire aléatoire, 
+clique = +1 score et nouvelle cible.
+[Format] HTML + CSS + JS, gamification visuelle.
+[Contraintes] Temps moyen, score max, pas de framework."</pre
+              >
+            </div>
+
+            <h3>🎯 À vous de jouer</h3>
+            <ul class="task-list">
+              <li>✓ Testez le jeu et évaluez la difficulté</li>
+              <li>
+                ✓ Défi : Demandez "Ajoute un mode multijoueur local (2 touches
+                clavier différentes)"
+              </li>
+              <li>
+                ✓ Défi+ : Demandez "Enregistre le meilleur score dans le
+                localStorage"
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Résumé des patterns -->
+        <section class="content-section">
+          <h2>Points-clés pour les dispositifs interactifs</h2>
+          <div class="tips-grid">
+            <div class="tip-card">
+              <h4>Concision d'abord</h4>
+              <p>
+                Les prompts créatifs ont besoin de clarté, pas de verbosité.
+              </p>
+            </div>
+            <div class="tip-card">
+              <h4>Affinage itératif</h4>
+              <p>
+                Construisez progressivement en utilisant les réponses
+                précédentes.
+              </p>
+            </div>
+            <div class="tip-card">
+              <h4>Tester et itérer</h4>
+              <p>Le rendu visuel révèle rapidement ce qui fonctionne ou non.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <section class="cta-section">
+          <div class="cta-buttons">
+            <a href="copilot-avance.html" class="btn btn-primary"
+              >Copilot Avancé →</a
+            >
+            <a href="exercices-web.html" class="btn btn-secondary"
+              >← Exercices Web</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - R602 Développement Web & Dispositifs
+        Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

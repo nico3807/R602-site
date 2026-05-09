@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copilot Avancé - R602 TP Prompting</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>R602</h1>
+          <p class="subtitle">Prompter une IA pour coder</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="methode.html">Méthode CRTFC</a></li>
+            <li><a href="exercices-web.html">Exercices Web</a></li>
+            <li><a href="exercices-dispositifs.html">Dispositifs</a></li>
+            <li>
+              <a href="copilot-avance.html" class="active">Copilot Avancé</a>
+            </li>
+            <li><a href="synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <h1>VSCode : Copilot Avancé</h1>
+        <p class="section-intro">Maîtriser les modes d'interaction avancés</p>
+
+        <section class="content-section">
+          <p>
+            GitHub Copilot dans VSCode offre plusieurs modes d'interaction.
+            Voici les plus utiles pour le développement web et interactif.
+          </p>
+        </section>
+
+        <!-- Commandes Slash -->
+        <section class="content-section">
+          <h2>Commandes slash utiles</h2>
+
+          <div class="commands-list">
+            <div class="command-item">
+              <h3>/explain</h3>
+              <p>Demande à Copilot d'expliquer le code sélectionné</p>
+              <div class="example-box">
+                <strong>Exemple :</strong> Sélectionnez une fonction complexe et
+                tapez /explain pour comprendre son fonctionnement.
+              </div>
+            </div>
+
+            <div class="command-item">
+              <h3>/fix</h3>
+              <p>Propose une correction pour le code sélectionné</p>
+              <div class="example-box">
+                <strong>Exemple :</strong> Un bug ? Sélectionnez le code et /fix
+                le corrige directement.
+              </div>
+            </div>
+
+            <div class="command-item">
+              <h3>/tests</h3>
+              <p>Génère des tests unitaires pour une fonction</p>
+              <div class="example-box">
+                <strong>Exemple :</strong> Sélectionnez une fonction et /tests
+                crée une suite de tests.
+              </div>
+            </div>
+
+            <div class="command-item">
+              <h3>/doc</h3>
+              <p>Génère la documentation d'une fonction</p>
+              <div class="example-box">
+                <strong>Exemple :</strong> Sélectionnez une fonction et /doc
+                produit une documentation JSDoc.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Prompts spécifiques -->
+        <section class="content-section">
+          <h2>Prompts spécifiques à Copilot dans VSCode</h2>
+
+          <div class="scenarios-grid">
+            <div class="scenario-card">
+              <h3>Expliquer du code sélectionné</h3>
+              <p>Sélectionnez une fonction puis demandez :</p>
+              <div class="code-block">
+                <pre>
+"Explique cette fonction en détail"
+"Pourquoi cette boucle s'arrête-t-elle ?"
+"Quel est le rôle de ce callback ?"</pre
+                >
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              <h3>Corriger un bug</h3>
+              <p>Identifiez le code problématique et tapez :</p>
+              <div class="code-block">
+                <pre>
+"/fix"
+"Cette fonction ne retourne pas le bon type"
+"Pourquoi ma boucle ne s'exécute pas ?"</pre
+                >
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              <h3>Refactorer du code</h3>
+              <p>Sélectionnez et demandez :</p>
+              <div class="code-block">
+                <pre>
+"Refactorise cette fonction avec des fonctions fléchées"
+"Simplifie ce code avec destructuring"
+"Convertis en ES6+"</pre
+                >
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              <h3>Générer des données de test</h3>
+              <p>Dans un fichier test, demandez :</p>
+              <div class="code-block">
+                <pre>
+"Génère 5 cas de test pour cette fonction"
+"Crée des fixtures réalistes"
+"Ajoute des edge cases"</pre
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Workflow recommandé -->
+        <section class="content-section">
+          <h2>Workflow recommandé avec Copilot</h2>
+
+          <div class="workflow-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h4>Écrire le contexte</h4>
+              <p>Commencez par un commentaire CRTFC</p>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <h4>Autocomplétion</h4>
+              <p>Laissez Copilot compléter votre code</p>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <h4>Vérifier</h4>
+              <p>Lisez toujours ce qui a été généré</p>
+            </div>
+            <div class="step">
+              <div class="step-number">4</div>
+              <h4>Affiner</h4>
+              <p>Utilisez /fix ou des prompts pour améliorer</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pièges courants -->
+        <section class="content-section">
+          <h2>Pièges courants à éviter</h2>
+
+          <div class="pitfalls-container">
+            <div class="pitfall">
+              <h3>❌ Ne pas lire le code généré</h3>
+              <p>
+                Copilot peut générer du code syntaxiquement correct mais
+                logiquement faux. <strong>Relisez toujours.</strong>
+              </p>
+            </div>
+            <div class="pitfall">
+              <h3>❌ Accepter les failles de sécurité</h3>
+              <p>
+                L'IA peut générer du code vulnérable (injections SQL, XSS).
+                <strong>Validez la sécurité.</strong>
+              </p>
+            </div>
+            <div class="pitfall">
+              <h3>❌ Ignorer la performance</h3>
+              <p>
+                Du code fonctionnel ≠ du code rapide.
+                <strong>Mesurez les performances.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <section class="cta-section">
+          <div class="cta-buttons">
+            <a href="synthese.html" class="btn btn-primary"
+              >Synthèse & Templates →</a
+            >
+            <a href="exercices-dispositifs.html" class="btn btn-secondary"
+              >← Dispositifs</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - R602 Développement Web & Dispositifs
+        Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
