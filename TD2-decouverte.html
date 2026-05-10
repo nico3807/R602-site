@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 1 - Découverte - TD2 Skills & Gems</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>TD2</h1>
+          <p class="subtitle">Skills Claude & Gems Gemini</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD2-index.html">Accueil TD2</a></li>
+            <li><a href="TD2-setup.html">Setup & Intro</a></li>
+            <li><a href="TD2-decouverte.html" class="active">Découverte</a></li>
+            <li><a href="TD2-creation.html">Créer un Skill</a></li>
+            <li><a href="TD2-avance.html">Aller plus loin</a></li>
+            <li><a href="TD2-synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <!-- Section Introduction -->
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 1 : Découverte des Skills & Gems</h2>
+            <p>
+              Testez les mêmes demandes sur Claude et Gemini avec et sans
+              configuration
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">4 exercices</span>
+              <span class="meta-item">Comparaison directe</span>
+              <span class="meta-item">Observation guidée</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- EX. 1 - DOCX -->
+        <section class="content-section">
+          <h2>EX. 1 - Génération de documents Word</h2>
+          <div class="text-content">
+            <h3>Contexte</h3>
+            <p>
+              Vous avez besoin d'un compte-rendu de réunion de projet SAÉ au
+              format Word.
+            </p>
+
+            <h3>🔵 Avec Claude + Skill DOCX</h3>
+            <ul class="highlight-list">
+              <li>Claude lit son SKILL.md et utilise la librairie Python</li>
+              <li>Génère un vrai fichier .docx structuré</li>
+              <li>Le fichier est livré via un bouton de téléchargement</li>
+              <li>Directement ouvrable dans Word ou LibreOffice</li>
+            </ul>
+
+            <h3>🟢 Avec Gemini + Gem Document</h3>
+            <ul class="highlight-list">
+              <li>Créez un Gem dédié à la génération de documents</li>
+              <li>Gemini génère du contenu structuré en Markdown</li>
+              <li>Vous copiez le résultat dans Google Docs</li>
+              <li>Alternative : exportez depuis Google Docs en .docx</li>
+            </ul>
+
+            <h3>À vous de jouer</h3>
+            <div class="tip-box">
+              <strong>Demande standard :</strong>
+              <br />
+              « Génère un compte-rendu de réunion de projet MMI en Word. Titre,
+              date, participants (4 personnes), points clés, décisions,
+              prochaine réunion. »
+            </div>
+            <p>
+              Testez d'abord <strong>sans</strong> skill ni Gem, puis
+              <strong>avec</strong> la configuration. Comparez les résultats.
+            </p>
+          </div>
+        </section>
+
+        <!-- EX. 2 - PPTX -->
+        <section class="content-section">
+          <h2>EX. 2 - Création de présentations PowerPoint</h2>
+          <div class="text-content">
+            <h3>Contexte</h3>
+            <p>
+              Vous préparez une soutenance SAÉ avec 5 slides : titre + équipe,
+              problématique, architecture, démo, bilan.
+            </p>
+
+            <h3>Prompt de test</h3>
+            <div class="tip-box">
+              <strong
+                >« Crée une présentation PowerPoint de soutenance pour mon SAÉ6
+                »</strong
+              ><br />
+              Projet : application web de gestion de portfolio MMI<br />
+              Stack : React, TypeScript, Express, PostgreSQL<br />
+              5 slides avec structure, design sobre, couleurs MMI (bleu/blanc).
+            </div>
+
+            <h3>🔵 Claude + Skill PPTX</h3>
+            <ul class="highlight-list">
+              <li>Claude exécute Python + python-pptx</li>
+              <li>Génère un fichier .pptx directement téléchargeable</li>
+              <li>Mise en forme cohérente et professionnelle</li>
+              <li>Ouvrable dans PowerPoint sans conversion</li>
+            </ul>
+
+            <h3>🟢 Gemini + Gem Présentation</h3>
+            <ul class="highlight-list">
+              <li>
+                Configurez un Gem avec instructions spécifiques pour les
+                présentations
+              </li>
+              <li>Gemini génère du contenu structuré en Markdown</li>
+              <li>
+                Intégration native : utilisez le bouton IA dans Google Slides
+              </li>
+              <li>Ou copiez le Markdown dans Google Slides manuellement</li>
+            </ul>
+
+            <h3>À vous de jouer</h3>
+            <p>
+              Générez la présentation sur les deux plateformes. Téléchargez le
+              .pptx Claude, importez le Gem Gemini dans Google Slides. Comparez
+              le rendu.
+            </p>
+            <p>
+              <strong>Défi :</strong> Demandez d'ajouter une slide de
+              remerciements avec logos sur les deux plateformes.
+            </p>
+          </div>
+        </section>
+
+        <!-- EX. 3 - PDF -->
+        <section class="content-section">
+          <h2>EX. 3 - Analyse de documents PDF</h2>
+          <div class="text-content">
+            <h3>Contexte</h3>
+            <p>
+              Vous avez le sujet de votre SAÉ en PDF. Les deux plateformes
+              peuvent l'analyser et générer des livrables structurés.
+            </p>
+
+            <h3>Chaîne Claude</h3>
+            <ul class="highlight-list">
+              <li>Uploadez le PDF dans Claude</li>
+              <li>Le skill file-reading l'analyse</li>
+              <li>
+                Générez un document Word (.docx) avec un planning structuré
+              </li>
+            </ul>
+
+            <h3>Chaîne Gemini</h3>
+            <ul class="highlight-list">
+              <li>Uploadez le PDF directement dans Gemini</li>
+              <li>Gemini lit nativement (contexte jusqu'à 2M tokens)</li>
+              <li>Utilisez votre Gem Document pour exporter en Google Docs</li>
+              <li>Avantage : analyse de longs documents</li>
+            </ul>
+
+            <h3>À vous de jouer</h3>
+            <p>
+              <strong>Testez avec votre sujet SAÉ actuelle :</strong>
+            </p>
+            <ul class="highlight-list">
+              <li>Claude : PDF → analyse → Word structuré avec planning</li>
+              <li>Gemini : PDF → analyse → export Google Docs formaté</li>
+            </ul>
+            <p>
+              <strong>Question :</strong> Dans quel cas utiliseriez-vous chaque
+              outil ?
+            </p>
+          </div>
+        </section>
+
+        <!-- EX. 4 - Déclenchement -->
+        <section class="content-section">
+          <h2>EX. 4 - Déclenchement automatique vs manuel</h2>
+          <div class="text-content">
+            <h3>Le concept clé</h3>
+            <p>
+              <strong>Claude :</strong> Les skills se déclenchent
+              <em>automatiquement</em> quand votre prompt contient certains
+              mots-clés de la description.
+            </p>
+            <p>
+              <strong>Gemini :</strong> Vous
+              <em>sélectionnez manuellement</em> le Gem avant de formuler votre
+              demande.
+            </p>
+
+            <h3>Testez ces prompts sur Claude</h3>
+            <div class="tip-box">
+              <p>Trouvez 3 formulations qui DÉCLENCHENT le skill DOCX :</p>
+              <ul>
+                <li>« Génère un compte-rendu en Word »</li>
+                <li>« Crée un document .docx avec... »</li>
+                <li>Trouvez la 3ème !</li>
+              </ul>
+              <p>Trouvez 3 formulations qui NE le déclenchent PAS :</p>
+              <ul>
+                <li>« Rédige un résumé de réunion en texte brut »</li>
+                <li>« Écris une liste de points clés »</li>
+                <li>Trouvez la 3ème !</li>
+              </ul>
+            </div>
+
+            <h3>Testez sur Gemini</h3>
+            <ul class="highlight-list">
+              <li>
+                Créez 2 Gems différents (ex: Rédacteur Word, Analyste PDF)
+              </li>
+              <li>
+                Testez la sélection manuelle : activez un Gem avant votre prompt
+              </li>
+              <li>Observez la différence de comportement</li>
+            </ul>
+
+            <h3>À vous de jouer</h3>
+            <div class="tip-box">
+              <strong>Discussion :</strong> Quel système préférez-vous pour
+              votre workflow quotidien - déclenchement automatique ou manuel ?
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA Navigation -->
+        <section class="cta-section">
+          <h2>Prêt à créer votre propre skill ?</h2>
+          <div class="cta-buttons">
+            <a href="TD2-creation.html" class="btn btn-primary"
+              >Partie 2 : Créer un Skill/Gem</a
+            >
+            <a href="TD2-setup.html" class="btn btn-secondary"
+              >Retour au Setup</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 IUT MMI Béziers - TD2 Skills Claude & Gems Gemini</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

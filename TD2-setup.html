@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setup & Découverte - TD2 Skills & Gems</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>TD2</h1>
+          <p class="subtitle">Skills Claude & Gems Gemini</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD2-index.html">Accueil TD2</a></li>
+            <li><a href="TD2-setup.html" class="active">Setup & Intro</a></li>
+            <li><a href="TD2-decouverte.html">Découverte</a></li>
+            <li><a href="TD2-creation.html">Créer un Skill</a></li>
+            <li><a href="TD2-avance.html">Aller plus loin</a></li>
+            <li><a href="TD2-synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <!-- Section Introduction -->
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Pourquoi capitaliser vos workflows IA ?</h2>
+            <p>
+              Transformez une configuration ad-hoc en outil productif et
+              réutilisable
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">2 plateformes</span>
+              <span class="meta-item">4 exercices pratiques</span>
+              <span class="meta-item">Un skill + 1 Gem à créer</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Setup -->
+        <section class="content-section">
+          <h2>🔧 Setup - Avant de commencer</h2>
+          <div class="text-content">
+            <h3>Claude.ai</h3>
+            <ul class="highlight-list">
+              <li>Connectez-vous avec votre compte étudiant</li>
+              <li>
+                Créez un dossier <code>tp-skills/</code> dans VSCode - c'est
+                votre base de travail
+              </li>
+              <li>
+                Créez le fichier <code>tp-skills/mon-skill/SKILL.md</code>
+              </li>
+              <li>
+                Vérifiez l'accès aux compétences (skills) dans Claude.ai sidebar
+              </li>
+            </ul>
+
+            <h3>Gemini Advanced</h3>
+            <ul class="highlight-list">
+              <li>Connectez-vous avec votre compte Google</li>
+              <li>Accédez à <strong>gemini.google.com</strong></li>
+              <li>
+                Alternative :
+                <strong>Google AI Studio</strong> (aistudio.google.com) pour
+                plus de flexibilité
+              </li>
+              <li>Repérez la section « Gems » pour créer vos configurations</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Pourquoi ? -->
+        <section class="content-section">
+          <h2>Sans configuration vs Avec configuration</h2>
+          <div class="card-container">
+            <div class="concept-card">
+              <h3>❌ Sans configuration</h3>
+              <p>
+                L'IA improvise à chaque session. Même question = réponses
+                différentes. Vous répétez les mêmes instructions.
+              </p>
+            </div>
+            <div class="concept-card">
+              <h3>✅ Avec skill/gem</h3>
+              <p>
+                Vous définissez une fois le mode opératoire. L'IA le respecte à
+                chaque fois. Gain de temps énorme sur la semestre.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Claude vs Gemini -->
+        <section class="content-section">
+          <h2>Claude vs Gemini - Aperçu</h2>
+          <div class="dimensions-grid">
+            <div class="dimension-item">
+              <div class="dimension-icon">1</div>
+              <h3>Déclenchement</h3>
+              <p>
+                <strong>Claude :</strong> Automatique (description SKILL.md)<br />
+                <strong>Gemini :</strong> Manuel (sélection du Gem)
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">2</div>
+              <h3>Format</h3>
+              <p>
+                <strong>Claude :</strong> Fichier Markdown+YAML<br />
+                <strong>Gemini :</strong> Champ texte + fichiers
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">3</div>
+              <h3>Exécution</h3>
+              <p>
+                <strong>Claude :</strong> Exécute Python/Node.js<br />
+                <strong>Gemini :</strong> Optionnel (code execution)
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">4</div>
+              <h3>Persistance</h3>
+              <p>
+                <strong>Claude :</strong> Par session<br />
+                <strong>Gemini :</strong> Sauvegardé en cloud
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA Navigation -->
+        <section class="cta-section">
+          <h2>Prêt à explorer ?</h2>
+          <div class="cta-buttons">
+            <a href="TD2-decouverte.html" class="btn btn-primary"
+              >Partie 1 : Découverte des Skills/Gems</a
+            >
+            <a href="TD2-synthese.html" class="btn btn-secondary"
+              >Voir la synthèse</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 IUT MMI Béziers - TD2 Skills Claude & Gems Gemini</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

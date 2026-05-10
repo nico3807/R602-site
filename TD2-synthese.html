@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synthèse - TD2 Skills & Gems</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>TD2</h1>
+          <p class="subtitle">Skills Claude & Gems Gemini</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD2-index.html">Accueil TD2</a></li>
+            <li><a href="TD2-setup.html">Setup & Intro</a></li>
+            <li><a href="TD2-decouverte.html">Découverte</a></li>
+            <li><a href="TD2-creation.html">Créer un Skill</a></li>
+            <li><a href="TD2-avance.html">Aller plus loin</a></li>
+            <li><a href="TD2-synthese.html" class="active">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <!-- Section Introduction -->
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Synthèse - Ce qu'on retient</h2>
+            <p>Les 4 éléments d'un skill/gem efficace et comparaison final</p>
+            <div class="hero-meta">
+              <span class="meta-item">Les essentiels</span>
+              <span class="meta-item">Comparative</span>
+              <span class="meta-item">Prochaines étapes</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Les 4 éléments -->
+        <section class="content-section">
+          <h2>Les 4 éléments d'un skill/gem efficace</h2>
+          <div class="dimensions-grid">
+            <div class="dimension-item">
+              <div class="dimension-icon">1</div>
+              <h3>Clarté du déclencheur</h3>
+              <p>
+                Les mots-clés de votre description (Claude) ou le nom du Gem
+                (Gemini) doivent être explicites et couvrir les variantes.
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">2</div>
+              <h3>Workflow structuré</h3>
+              <p>
+                Les étapes doivent être numérotées, impératives, et progresser
+                logiquement du contexte à la sortie finale.
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">3</div>
+              <h3>Contraintes explicites</h3>
+              <p>
+                Listez ce que l'IA DOIT faire et ce qu'elle NE DOIT PAS faire.
+                Les règles critiques en majuscules.
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">4</div>
+              <h3>Sortie standardisée</h3>
+              <p>
+                La structure de sortie (format, sections, mise en forme) doit
+                être parfaitement définie. Pas d'improvisation.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bilan comparatif -->
+        <section class="content-section">
+          <h2>Bilan comparatif : Claude vs Gemini</h2>
+          <div class="text-content">
+            <h3>Claude + Skills</h3>
+            <div class="tip-box">
+              <strong>✅ Forces</strong>
+              <ul>
+                <li>Exécution de code (Python, Node.js) directement</li>
+                <li>Génération de fichiers .docx, .xlsx, .pptx natifs</li>
+                <li>
+                  Déclenchement automatique = moins de clics pour l'utilisateur
+                </li>
+                <li>Versionning facile (Git)</li>
+              </ul>
+              <strong>❌ Faiblesses</strong>
+              <ul>
+                <li>
+                  Configuration par session (relit le fichier à chaque fois)
+                </li>
+                <li>Complexité : YAML frontmatter + Markdown + code</li>
+                <li>Moins bon pour les longs documents (&lt; 200k tokens)</li>
+              </ul>
+            </div>
+
+            <h3>Gemini + Gems</h3>
+            <div class="tip-box">
+              <strong>✅ Forces</strong>
+              <ul>
+                <li>
+                  Intégration native Google Workspace (Slides, Docs, Sheets)
+                </li>
+                <li>Contexte long (jusqu'à 2M tokens)</li>
+                <li>
+                  Fichiers de connaissance persistants dans le Gem (pas à
+                  joindre)
+                </li>
+                <li>Interface simple et intuitive</li>
+              </ul>
+              <strong>❌ Faiblesses</strong>
+              <ul>
+                <li>Déclenchement manuel = sélection du Gem à chaque fois</li>
+                <li>
+                  Pas de génération native de .docx/.pptx (via Markdown + Google
+                  Docs)
+                </li>
+                <li>Moins bon pour les tâches complexes d'exécution code</li>
+              </ul>
+            </div>
+
+            <h3>Choisir le bon outil</h3>
+            <div class="context-box">
+              <div class="context-item sees">
+                <h4>👉 Utilisez Claude si...</h4>
+                <ul>
+                  <li>Vous avez besoin de générer des fichiers Office</li>
+                  <li>
+                    Vous devez exécuter du code complexe (data processing, etc.)
+                  </li>
+                  <li>Vous préférez déclenchement automatique</li>
+                </ul>
+              </div>
+              <div class="context-item unsees">
+                <h4>👉 Utilisez Gemini si...</h4>
+                <ul>
+                  <li>Vous analysez de longs documents (2M tokens)</li>
+                  <li>Vous travaillez dans l'écosystème Google</li>
+                  <li>
+                    Vous avez besoin de persistance (fichiers de référence)
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Ce que vous savez faire -->
+        <section class="content-section">
+          <h2>Ce que vous savez faire maintenant</h2>
+          <div class="text-content">
+            <ul class="highlight-list">
+              <li>
+                Utiliser les skills Claude (DOCX, PPTX, PDF) et les Gems Gemini
+                équivalents
+              </li>
+              <li>
+                Comprendre la différence entre déclenchement automatique
+                (Claude) et manuel (Gemini)
+              </li>
+              <li>
+                Créer un SKILL.md avec YAML frontmatter, workflow, structure et
+                règles critiques
+              </li>
+              <li>
+                Configurer un Gem Gemini avec instructions systèmes et fichiers
+                de connaissance
+              </li>
+              <li>
+                Tester et itérer : identifier les problèmes et les corriger dans
+                chaque plateforme
+              </li>
+              <li>
+                Choisir l'outil adapté selon le besoin : génération de fichiers
+                → Claude, intégration Google → Gemini
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Prochaines étapes -->
+        <section class="content-section">
+          <h2>Prochaines étapes</h2>
+          <div class="text-content">
+            <h3>Avant votre prochain projet</h3>
+            <ul class="highlight-list">
+              <li>
+                Identifiez les tâches répétitives : ce sont vos futurs
+                skills/gems
+              </li>
+              <li>
+                Écrivez vos configurations une fois, réutilisez-les 10 fois
+              </li>
+              <li>Documentez vos workflows pour vos camarades de binôme</li>
+              <li>Partagez vos SKILL.md via Git, vos Gems via lien Gemini</li>
+            </ul>
+
+            <h3>Ressources recommandées</h3>
+            <div class="tip-box">
+              <ul>
+                <li>
+                  <strong>Documentation Claude :</strong> Visitez claude.ai/docs
+                  pour les best practices
+                </li>
+                <li>
+                  <strong>Google AI Studio :</strong> aistudio.google.com pour
+                  explorer Gemini en détail
+                </li>
+                <li>
+                  <strong>Communauté :</strong> Partagez vos skills/gems avec
+                  vos camarades et itérez ensemble
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Évaluation -->
+        <section class="content-section">
+          <h2>📋 Grille d'évaluation du TD</h2>
+          <div class="text-content">
+            <h3>Critères</h3>
+            <ul class="highlight-list">
+              <li>
+                <strong>Clarté (20 pts) :</strong> Description et instructions
+                sont-elles compréhensibles ?
+              </li>
+              <li>
+                <strong>Complétude (20 pts) :</strong> Couverture tous les cas
+                d'usage du skill/gem ?
+              </li>
+              <li>
+                <strong>Qualité des résultats (20 pts) :</strong> Sortie
+                structurée et professionnelle ?
+              </li>
+              <li>
+                <strong>Test & itération (20 pts) :</strong> Avez-vous testé et
+                amélioré ?
+              </li>
+              <li>
+                <strong>Documentation (20 pts) :</strong> Pair review validé,
+                exemples fournis
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- CTA final -->
+        <section class="cta-section">
+          <h2>Bon courage pour vos projets futurs ! 🚀</h2>
+          <div class="cta-buttons">
+            <a href="TD2-index.html" class="btn btn-primary"
+              >Retour à l'accueil TD2</a
+            >
+            <a href="TD1-prompter.html" class="btn btn-secondary"
+              >Revoir le TD1</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 IUT MMI Béziers - TD2 Skills Claude & Gems Gemini</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

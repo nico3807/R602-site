@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TD1 - Prompter une IA pour coder</title>
+    <title>TD2 - Skills Claude & Gems Gemini</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       .hero-home {
@@ -19,42 +19,6 @@
       .hero-home-content {
         text-align: center;
         max-width: 600px;
-      }
-
-      .td-section {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--color-white);
-        padding: var(--spacing-lg);
-      }
-
-      .td-section.td1 {
-        background: linear-gradient(135deg, #1e5aa8 0%, #1a7a3c 100%);
-      }
-
-      .td-section.td2 {
-        background: linear-gradient(135deg, #1a7a3c 0%, #1e5aa8 100%);
-      }
-
-      .td-content {
-        text-align: center;
-        max-width: 600px;
-      }
-
-      .td-content h2 {
-        font-size: 3.5rem;
-        margin-bottom: var(--spacing-lg);
-        font-weight: 700;
-        line-height: 1.2;
-      }
-
-      .td-content p {
-        font-size: 1.3rem;
-        margin-bottom: var(--spacing-xl);
-        opacity: 0.95;
-        line-height: 1.6;
       }
 
       .hero-home h1 {
@@ -118,13 +82,11 @@
       }
 
       @media (max-width: 768px) {
-        .hero-home h1,
-        .td-content h2 {
+        .hero-home h1 {
           font-size: 2.5rem;
         }
 
-        .hero-home p,
-        .td-content p {
+        .hero-home p {
           font-size: 1.1rem;
         }
 
@@ -143,38 +105,32 @@
     </style>
   </head>
   <body>
-    <!-- Section TD1 -->
-    <section class="td-section td1">
-      <div class="td-content">
-        <h2>TD1 - Prompter une IA pour coder</h2>
-        <p>
-          Apprenez à maîtriser l'art de la communication avec les intelligences
-          artificielles pour générer du code de qualité professionnelle
-        </p>
-        <a href="TD1-prompter.html" class="cta-button">Commencer le TD</a>
-        <div class="hero-meta">
-          <span class="meta-item">Durée : 3 heures</span>
-          <span class="meta-item">Niveau : BUT3 MMI</span>
-          <span class="meta-item">IUT Béziers</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section TD2 -->
-    <section class="td-section td2">
-      <div class="td-content">
-        <h2>TD2 - Skills Claude & Gems Gemini</h2>
+    <!-- Contenu principal -->
+    <main class="hero-home">
+      <div class="hero-home-content">
+        <h1>TD2 - Skills Claude & Gems Gemini</h1>
         <p>
           Découvrez, utilisez et créez vos propres workflows IA sur deux
           plateformes : capitalisez vos configurations pour gagner du temps
         </p>
-        <a href="TD2-index.html" class="cta-button">Commencer le TD</a>
+        <a href="TD2-setup.html" class="cta-button">Commencer le TD</a>
+        <a
+          href="index.html"
+          class="cta-button"
+          style="
+            display: inline-block;
+            margin-left: 15px;
+            background-color: rgba(242, 169, 46, 0.3);
+            border: 2px solid var(--color-accent);
+          "
+          >Retour à l'accueil</a
+        >
         <div class="hero-meta">
           <span class="meta-item">Durée : 1h30</span>
           <span class="meta-item">Niveau : BUT3 MMI</span>
           <span class="meta-item">IUT Béziers</span>
         </div>
       </div>
-    </section>
+    </main>
   </body>
 </html>

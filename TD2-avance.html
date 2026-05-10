@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 3 - Aller plus loin - TD2</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>TD2</h1>
+          <p class="subtitle">Skills Claude & Gems Gemini</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD2-index.html">Accueil TD2</a></li>
+            <li><a href="TD2-setup.html">Setup & Intro</a></li>
+            <li><a href="TD2-decouverte.html">Découverte</a></li>
+            <li><a href="TD2-creation.html">Créer un Skill</a></li>
+            <li>
+              <a href="TD2-avance.html" class="active">Aller plus loin</a>
+            </li>
+            <li><a href="TD2-synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <!-- Section Introduction -->
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 3 : Aller plus loin</h2>
+            <p>
+              Enrichissez vos skills et gems avec des fichiers de connaissance
+              et des configurations avancées
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">Fichiers de connaissance</span>
+              <span class="meta-item">Optimisations</span>
+              <span class="meta-item">Idées de projects</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fichiers de connaissance -->
+        <section class="content-section">
+          <h2>Fichiers de connaissance : l'atout Gemini</h2>
+          <div class="text-content">
+            <p>
+              <strong>Gemini Advanced</strong> permet d'attacher des fichiers de
+              connaissance directement dans un Gem. Avantage clé : le fichier
+              reste persistant dans le Gem, vous n'avez pas à le joindre à
+              chaque session.
+            </p>
+
+            <h3>Comment faire</h3>
+            <ul class="highlight-list">
+              <li>
+                Allez dans la configuration du Gem, section
+                <strong>« Connaissance »</strong>
+              </li>
+              <li>Uploadez le fichier (Markdown, PDF, texte)</li>
+              <li>Gemini l'indexe automatiquement</li>
+              <li>
+                Dans les instructions, dites :
+                <code>« Consulte le fichier codes-ac-but-mmi.md »</code>
+              </li>
+            </ul>
+
+            <h3>Exemple : Fichier de codes AC</h3>
+            <p>
+              Créez un fichier <code>codes-ac-but-mmi.md</code> avec les codes
+              AC réels du BUT MMI. Voici la structure :
+            </p>
+
+            <div class="tip-box">
+              <strong>Contenu exemple :</strong><br />
+              <code>
+                # Codes AC - BUT MMI<br />
+                ## Semestre 3<br />
+                - AC1101 : Web design<br />
+                - AC1102 : Frontend development<br />
+                - AC1201 : Marketing digital<br />
+                ...<br />
+              </code>
+            </div>
+
+            <h3>Avantage sur Claude</h3>
+            <p>
+              Claude exécute des skills à partir de SKILL.md, mais les fichiers
+              externes doivent être joints à chaque utilisation. Avec Gemini,
+              c'est persistant et indexé.
+            </p>
+          </div>
+        </section>
+
+        <!-- Ideas de skills/gems -->
+        <section class="content-section">
+          <h2>Idées de Skills/Gems pour votre parcours MMI</h2>
+          <div class="text-content">
+            <p>
+              Voici des outils que vous pourriez créer pour gagner du temps :
+            </p>
+
+            <div class="card-container">
+              <div class="concept-card">
+                <h3>📋 Générateur de briefs</h3>
+                <p>
+                  Brief de projet SAÉ, brief client, brief créatif. Format
+                  standard, sections obligatoires.
+                </p>
+              </div>
+              <div class="concept-card">
+                <h3>🎨 Fiche de persona</h3>
+                <p>
+                  Générez des personas structurées pour vos projets UX :
+                  démographie, comportement, objectifs, frustrations.
+                </p>
+              </div>
+              <div class="concept-card">
+                <h3>📊 Rapport de test utilisateur</h3>
+                <p>
+                  Analysez vos tests utilisateurs, générez un rapport structuré
+                  avec insights et recommandations.
+                </p>
+              </div>
+              <div class="concept-card">
+                <h3>🔧 Checker technique</h3>
+                <p>
+                  Uploadez votre code, le skill/gem analyse la qualité,
+                  conformité, suggestions de refactoring.
+                </p>
+              </div>
+            </div>
+
+            <h3>À vous de jouer</h3>
+            <ul class="highlight-list">
+              <li>
+                Créez un fichier <code>references/codes-ac-but-mmi.md</code>
+                avec au moins 5 codes réels
+              </li>
+              <li>
+                Importez-le dans votre Gem Gemini existant (configuration)
+              </li>
+              <li>
+                Testez : « Crée une fiche SAÉ avec uniquement des codes AC réels
+                »
+              </li>
+            </ul>
+
+            <h3>🎯 Défi (10 min)</h3>
+            <p>
+              Choisissez un skill dans la table ci-dessus et implémentez-le sur
+              les deux plateformes. Comparez la qualité et le temps d'exécution.
+            </p>
+          </div>
+        </section>
+
+        <!-- Discussion -->
+        <section class="content-section">
+          <h2>Discussion en groupe</h2>
+          <div class="context-box">
+            <div class="context-item sees">
+              <h4>🤔 Questions de réflexion</h4>
+              <ul>
+                <li>
+                  Quel skill vous ferait gagner le plus de temps ce semestre ?
+                </li>
+                <li>
+                  Préférez-vous déclenchement automatique (Claude) ou manuel
+                  (Gemini) ?
+                </li>
+                <li>
+                  Comment partager vos skills/gems avec vos camarades de binôme
+                  ?
+                </li>
+                <li>
+                  Quels secteurs (communication, dev, design) bénéficieraient le
+                  plus d'une configuration IA persistante ?
+                </li>
+              </ul>
+            </div>
+            <div class="context-item unsees">
+              <h4>💡 Points clés à retenir</h4>
+              <ul>
+                <li>Une bonne config = gain de temps énorme</li>
+                <li>
+                  Mais elle nécessite de définir clairement le besoin en amont
+                </li>
+                <li>Itération = clé du succès</li>
+                <li>
+                  Les deux plateformes sont complémentaires, pas antagonistes
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist pré-déploiement -->
+        <section class="content-section">
+          <h2>Checklist avant de déployer</h2>
+          <div class="text-content">
+            <h3>Pour votre SKILL.md (Claude)</h3>
+            <ul class="highlight-list">
+              <li>☑ Description liste ≥ 5 formulations déclencheuses</li>
+              <li>☑ Description précise ce que le skill NE fait PAS</li>
+              <li>☑ Workflow écrit à l'impératif et numéroté</li>
+              <li>☑ Structure de sortie explicitement définie</li>
+              <li>☑ Règles critiques dans une section dédiée</li>
+              <li>☑ Testé avec 3 prompts différents</li>
+              <li>☑ Fichier &lt; 500 lignes (sinon : references/)</li>
+            </ul>
+
+            <h3>Pour votre Gem (Gemini)</h3>
+            <ul class="highlight-list">
+              <li>☑ Nom clair et mémorisable</li>
+              <li>☑ Instructions structurées (numérotées ou tirets)</li>
+              <li>☑ Format de sortie explicitement décrit</li>
+              <li>☑ RÈGLES ABSOLUES en majuscules pour les contraintes</li>
+              <li>☑ Fichiers de connaissance uploadés si nécessaire</li>
+              <li>☑ Testé avec 3 prompts différents</li>
+              <li>☑ Instructions &lt; 2000 mots (au-delà : fichier joint)</li>
+            </ul>
+
+            <div class="tip-box">
+              <strong>Pair review :</strong> Échangez votre SKILL.md avec un
+              camarade. Peut-il l'utiliser sans poser de questions ?
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA Navigation -->
+        <section class="cta-section">
+          <h2>Résumé et synthèse</h2>
+          <div class="cta-buttons">
+            <a href="TD2-synthese.html" class="btn btn-primary"
+              >Voir la synthèse complète</a
+            >
+            <a href="TD2-creation.html" class="btn btn-secondary"
+              >Retour à la création</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 IUT MMI Béziers - TD2 Skills Claude & Gems Gemini</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

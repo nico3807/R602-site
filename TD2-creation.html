@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 2 - Créer son Skill - TD2</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>TD2</h1>
+          <p class="subtitle">Skills Claude & Gems Gemini</p>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD2-index.html">Accueil TD2</a></li>
+            <li><a href="TD2-setup.html">Setup & Intro</a></li>
+            <li><a href="TD2-decouverte.html">Découverte</a></li>
+            <li>
+              <a href="TD2-creation.html" class="active">Créer un Skill</a>
+            </li>
+            <li><a href="TD2-avance.html">Aller plus loin</a></li>
+            <li><a href="TD2-synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="main">
+      <div class="container">
+        <!-- Section Introduction -->
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 2 : Créer son premier Skill/Gem</h2>
+            <p>
+              Créez un outil de génération de fiches SAÉ - d'abord comme skill
+              Claude, puis comme Gem Gemini
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">Un projet concret</span>
+              <span class="meta-item">Deux implémentations</span>
+              <span class="meta-item">Travail en binôme</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Les 4 questions -->
+        <section class="content-section">
+          <h2>Les 4 questions préalables</h2>
+          <div class="text-content">
+            <p>
+              Répondez à ces questions en binôme avant de coder. Elles
+              s'appliquent aux deux plateformes.
+            </p>
+
+            <h3>1. Quel est le déclencheur principal ?</h3>
+            <div class="context-box">
+              <div class="context-item sees">
+                <h4>Claude (skill)</h4>
+                <p>
+                  « Crée une fiche SAÉ MMI »<br />
+                  « Génère un document de présentation SAÉ »<br />
+                  Identifiez 5 formulations
+                </p>
+              </div>
+              <div class="context-item unsees">
+                <h4>Gemini (Gem)</h4>
+                <p>
+                  Nom du Gem : « Générateur de Fiches SAÉ »<br />
+                  Décrivez quand on l'utilise
+                </p>
+              </div>
+            </div>
+
+            <h3>2. Quelle est la structure cible ?</h3>
+            <div class="tip-box">
+              <strong>Fiche SAÉ MMI minimale :</strong>
+              <ul>
+                <li>Titre du projet</li>
+                <li>Équipe (4 personnes)</li>
+                <li>Problématique / contexte</li>
+                <li>Compétences mobilisées (codes AC)</li>
+                <li>Stack technique</li>
+                <li>Calendrier / livrables</li>
+                <li>Réflexion personnelle</li>
+              </ul>
+            </div>
+
+            <h3>3. Quelles sont les règles critiques ?</h3>
+            <p>
+              Identifiez les contraintes absolues (ex: codes AC doivent être
+              réels, min 4 compétences, etc.)
+            </p>
+
+            <h3>4. Quel est le format de sortie ?</h3>
+            <p>
+              <strong>Claude :</strong> Fichier .docx avec mise en forme<br />
+              <strong>Gemini :</strong> Markdown structuré → copier dans Google
+              Docs
+            </p>
+          </div>
+        </section>
+
+        <!-- Créer le SKILL.md -->
+        <section class="content-section">
+          <h2>Créer votre SKILL.md (Claude)</h2>
+          <div class="text-content">
+            <p>
+              Ouvrez VSCode et créez le fichier
+              <code>tp-skills/sae-mmi/SKILL.md</code> :
+            </p>
+
+            <div class="context-box">
+              <div class="context-item sees">
+                <h4>Structure YAML (frontmatter)</h4>
+                <pre><code>---
+name: Générateur de Fiches SAÉ
+description: "Crée une fiche SAÉ structurée au format Word"
+version: 1.0
+author: votreNom
+---</code></pre>
+              </div>
+              <div class="context-item unsees">
+                <h4>Instructions</h4>
+                <p>Écrivez :</p>
+                <ul>
+                  <li>Le workflow (étapes numérotées)</li>
+                  <li>La structure de sortie (.docx)</li>
+                  <li>Les règles critiques en majuscules</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3>Checklist SKILL.md</h3>
+            <ul class="highlight-list">
+              <li>☑ Description avec ≥ 5 mots-clés déclencheurs</li>
+              <li>☑ Workflow numéroté et impératif</li>
+              <li>☑ Structure de sortie explicite</li>
+              <li>☑ Règles critiques en majuscules</li>
+              <li>☑ Testé avec 3 prompts différents</li>
+              <li>☑ Fichier &lt; 500 lignes (sinon : fichiers references/)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Créer le Gem -->
+        <section class="content-section">
+          <h2>Créer votre Gem (Gemini)</h2>
+          <div class="text-content">
+            <p>
+              Allez sur <strong>gemini.google.com</strong>, créez un nouveau Gem
+              et collez ces instructions dans le champ système :
+            </p>
+
+            <div class="tip-box">
+              <strong>Instructions système recommandées :</strong><br />
+              <code
+                >Tu es un expert en création de fiches de projet SAÉ pour le BUT
+                MMI. Tu génères des fiches structurées, professionnelles et
+                exploitables. Quand on te demande une fiche SAÉ, tu :</code
+              >
+              <ol>
+                <li>
+                  Demandes les informations manquantes (équipe, technologies)
+                </li>
+                <li>
+                  Génères un contenu structuré avec codes AC valides si possible
+                </li>
+                <li>Proposes une mise en forme Markdown pour Google Docs</li>
+                <li>
+                  Includes une réflexion personnelle pour chaque compétence
+                </li>
+              </ol>
+            </div>
+
+            <h3>Checklist Gem Gemini</h3>
+            <ul class="highlight-list">
+              <li>☑ Nom clair et mémorisable</li>
+              <li>☑ Instructions structurées (numérotées ou tirets)</li>
+              <li>☑ Format de sortie explicitement décrit</li>
+              <li>☑ RÈGLES ABSOLUES en majuscules pour les contraintes</li>
+              <li>☑ Testé avec 3 prompts différents</li>
+              <li>☑ Instructions &lt; 2000 mots (au-delà : fichier joint)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- À vous de jouer -->
+        <section class="content-section">
+          <h2>À vous de jouer</h2>
+          <div class="text-content">
+            <h3>1. Préparation (15 min)</h3>
+            <ul class="highlight-list">
+              <li>Répondez aux 4 questions en binôme</li>
+              <li>Listez 5 formulations déclencheuses</li>
+              <li>Identifiez 3-5 règles critiques</li>
+            </ul>
+
+            <h3>2. Implémentation (30 min)</h3>
+            <ul class="highlight-list">
+              <li>Créez votre SKILL.md dans VSCode</li>
+              <li>Configurez votre Gem dans Gemini</li>
+              <li>Ajoutez une section « Exemple » avec une fiche minimale</li>
+            </ul>
+
+            <h3>3. Test & Itération (20 min)</h3>
+            <ul class="highlight-list">
+              <li>Testez 3 fois avec des SAÉ différentes sur les deux</li>
+              <li>Identifiez le problème le plus récurrent</li>
+              <li>Corrigez-le dans votre SKILL.md ou instructions Gem</li>
+            </ul>
+
+            <h3>4. Pair Review</h3>
+            <div class="tip-box">
+              <strong>Échangez votre SKILL.md avec un camarade :</strong> Sa
+              description est-elle claire ? Peut-il utiliser votre skill sans
+              questions ?
+            </div>
+
+            <h3>🎯 Défi optionnel</h3>
+            <p>
+              Ajoutez une règle qui empêche la génération d'une fiche avec moins
+              de 4 compétences.
+            </p>
+          </div>
+        </section>
+
+        <!-- CTA Navigation -->
+        <section class="cta-section">
+          <h2>Explorez les possibilités avancées</h2>
+          <div class="cta-buttons">
+            <a href="TD2-avance.html" class="btn btn-primary"
+              >Partie 3 : Aller plus loin</a
+            >
+            <a href="TD2-decouverte.html" class="btn btn-secondary"
+              >Retour à la découverte</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 IUT MMI Béziers - TD2 Skills Claude & Gems Gemini</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
