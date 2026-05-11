@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 3 - Premier appel API REST | TD3</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .section-number {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #7c3aed;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: var(--spacing-xs);
+      }
+
+      .api-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .api-table thead { background: #7c3aed; color: white; }
+      .api-table th, .api-table td { padding: var(--spacing-md); text-align: left; }
+      .api-table td { border-bottom: 1px solid var(--color-border); }
+      .api-table tbody tr:hover { background: var(--color-light); }
+
+      .method-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .method-post { background: #fde68a; color: #92400e; }
+      .method-get { background: #d1fae5; color: #065f46; }
+
+      .endpoint {
+        font-family: var(--font-mono);
+        font-weight: 700;
+        color: #7c3aed;
+      }
+
+      .params-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: var(--spacing-lg);
+        background: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .params-table th { background: #1e5aa8; color: white; padding: var(--spacing-md); text-align: left; }
+      .params-table td { padding: var(--spacing-md); border-bottom: 1px solid var(--color-border); }
+      .params-table tbody tr:hover { background: var(--color-light); }
+      .params-table td:first-child { font-family: var(--font-mono); color: #7c3aed; font-weight: 700; }
+
+      .warning-box {
+        background: #fff3cd;
+        border-left: 4px solid #f59e0b;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .warning-box strong { color: #92400e; }
+
+      .objective-box {
+        background: #ede9fe;
+        border-left: 4px solid #7c3aed;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .objective-box strong { color: #7c3aed; }
+
+      .questions-list {
+        display: grid;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .question-item {
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        display: flex;
+        gap: var(--spacing-md);
+        align-items: flex-start;
+      }
+
+      .question-num {
+        width: 32px;
+        height: 32px;
+        background: #7c3aed;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+
+      .question-text { margin: 0; line-height: 1.6; }
+
+      .continue-tip {
+        background: #dbeafe;
+        border-left: 4px solid #1e5aa8;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .continue-tip strong { color: #1e40af; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html">Introduction</a></li>
+            <li><a href="TD3-partie1.html">1 · Installation</a></li>
+            <li><a href="TD3-partie2.html">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html" class="active">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 3 — Premier appel API depuis HTML</h2>
+            <p>
+              Consommer directement l'API REST d'Ollama depuis votre propre code JavaScript,
+              sans bibliothèque tierce.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">35 min</span>
+              <span class="meta-item">JavaScript + fetch()</span>
+              <span class="meta-item">endpoint /api/generate</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3.1 L'API REST d'Ollama -->
+        <section class="content-section">
+          <div class="section-number">3.1</div>
+          <h2>L'API REST d'Ollama</h2>
+          <p>
+            Continue utilise en interne cette même API pour communiquer avec Ollama. Vous allez
+            maintenant la consommer directement depuis votre propre code JavaScript, sans bibliothèque tierce.
+          </p>
+          <table class="api-table">
+            <thead>
+              <tr>
+                <th>Méthode</th>
+                <th>Endpoint</th>
+                <th>Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><span class="endpoint">/api/generate</span></td>
+                <td>Génère une réponse à un prompt unique</td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-post">POST</span></td>
+                <td><span class="endpoint">/api/chat</span></td>
+                <td>Conversation multi-tours avec historique (rôles user/assistant)</td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-get">GET</span></td>
+                <td><span class="endpoint">/api/tags</span></td>
+                <td>Liste les modèles disponibles localement</td>
+              </tr>
+              <tr>
+                <td><span class="method-badge method-get">GET</span></td>
+                <td><span class="endpoint">/api/show</span></td>
+                <td>Détails techniques d'un modèle (taille, famille, paramètres)</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 3.2 Structure de la requête JSON -->
+        <section class="content-section">
+          <div class="section-number">3.2</div>
+          <h2>Structure de la requête JSON</h2>
+          <div class="code-block">
+            <pre>// Corps de la requête POST vers /api/generate
+{
+  "model": "mistral",
+  "prompt": "Explique-moi ce qu'est une API REST.",
+  "stream": false,
+  "options": {
+    "temperature": 0.7,
+    "num_predict": 400
+  }
+}
+
+// Réponse JSON retournée par Ollama
+{
+  "model": "mistral",
+  "response": "Une API REST est...",
+  "done": true,
+  "total_duration": 2340000000
+}</pre>
+          </div>
+          <h3>Paramètres expliqués</h3>
+          <table class="params-table">
+            <thead>
+              <tr><th>Paramètre</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>model</td>
+                <td>Nom du modèle : <code>mistral</code>, <code>qwen2.5</code> ou <code>llama3.2</code></td>
+              </tr>
+              <tr>
+                <td>prompt</td>
+                <td>Le texte de votre question envoyée au modèle</td>
+              </tr>
+              <tr>
+                <td>stream</td>
+                <td><code>false</code> = attend la réponse complète · <code>true</code> = tokens envoyés un par un (SSE)</td>
+              </tr>
+              <tr>
+                <td>temperature</td>
+                <td>Créativité : 0.0 (déterministe) → 1.0 (créatif). Défaut : 0.8</td>
+              </tr>
+              <tr>
+                <td>num_predict</td>
+                <td>Nombre maximum de tokens à générer dans la réponse</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 3.3 Exercice -->
+        <section class="content-section">
+          <div class="section-number">3.3</div>
+          <h2>Exercice : index.html avec fetch()</h2>
+          <div class="objective-box">
+            <strong>🎯 Objectif</strong><br/>
+            Créer une page <code>index.html</code> qui envoie un prompt fixe à Mistral via
+            <code>fetch()</code> et affiche la réponse. Pas d'interface complexe : juste
+            le résultat dans un <code>&lt;div&gt;</code>.
+          </div>
+          <p>Créez le fichier dans VS Code. Utilisez Continue (<span style="font-family:monospace">Cmd+L</span>) pour vous aider si besoin !</p>
+          <div class="code-block">
+            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Ollama - Premier test&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: Arial, sans-serif; max-width: 800px;
+           margin: 40px auto; padding: 0 20px; background: #f8fafc; }
+    #reponse { background: white; border: 1px solid #cbd5e1;
+               border-radius: 8px; padding: 20px; margin-top: 20px;
+               white-space: pre-wrap; line-height: 1.6; }
+    #statut { color: #64748b; font-style: italic; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Test Ollama&lt;/h1&gt;
+  &lt;p id="statut"&gt;Chargement...&lt;/p&gt;
+  &lt;div id="reponse"&gt;Ma réponse sera ici...&lt;/div&gt;
+
+  &lt;script&gt;
+    const PROMPT = "Explique le concept de réseau de neurones en 5 phrases.";
+
+    async function interroger() {
+      const statut = document.getElementById("statut");
+      const reponse = document.getElementById("reponse");
+      statut.textContent = "Requête en cours...";
+
+      try {
+        const res = await fetch("http://localhost:11434/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "mistral",
+            prompt: PROMPT,
+            stream: false,
+            options: { temperature: 0.7, num_predict: 400 }
+          })
+        });
+        const data = await res.json();
+        // La réponse est dans data.response
+        statut.textContent = "Réponse reçue !";
+        reponse.textContent = data.response;
+      } catch (err) {
+        statut.textContent = "Erreur : " + err.message;
+      }
+    }
+
+    interroger();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+          </div>
+          <div class="warning-box">
+            <strong>⚠️ Erreur CORS</strong><br/>
+            Si le navigateur bloque la requête, démarrez Ollama avec :
+            <code>OLLAMA_ORIGINS=* ollama serve</code> — ou ouvrez le fichier via
+            <strong>Live Server</strong> (extension VS Code) plutôt qu'en <code>file://</code>.
+          </div>
+        </section>
+
+        <!-- 3.4 Questions de compréhension -->
+        <section class="content-section">
+          <div class="section-number">3.4</div>
+          <h2>Questions de compréhension</h2>
+          <div class="questions-list">
+            <div class="question-item">
+              <div class="question-num">14</div>
+              <p class="question-text">Où dans l'objet JSON retourné se trouve la réponse textuelle du modèle ?</p>
+            </div>
+            <div class="question-item">
+              <div class="question-num">15</div>
+              <p class="question-text">Que contient <code>data.total_duration</code> ? À quoi peut servir cette valeur ?</p>
+            </div>
+            <div class="question-item">
+              <div class="question-num">16</div>
+              <p class="question-text">
+                Passez <code>stream</code> à <code>true</code> et rechargez. Que se passe-t-il ?
+                Pourquoi le texte n'est-il plus parsable directement ?
+              </p>
+            </div>
+            <div class="question-item">
+              <div class="question-num">17</div>
+              <p class="question-text">
+                Changez le modèle pour <code>qwen2.5</code>. La réponse est-elle différente ?
+                Plus longue ? Mieux structurée ?
+              </p>
+            </div>
+          </div>
+          <div class="continue-tip">
+            <strong>💡 Astuce Continue</strong><br/>
+            Si vous êtes bloqué sur la structure du fetch ou la gestion des erreurs, sélectionnez
+            votre code et demandez à Continue (<span style="font-family:monospace">Cmd+I</span>) d'ajouter
+            une meilleure gestion d'erreurs.
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Premier appel réussi !</h2>
+          <div class="cta-buttons">
+            <a href="TD3-partie4.html" class="btn">Partie 4 : Interface de chat</a>
+            <a href="TD3-partie2.html" class="btn btn-secondary">Revenir à Continue</a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

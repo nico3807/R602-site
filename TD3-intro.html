@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction - TD3 Ollama + Continue</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .td3-accent { color: #7c3aed; }
+      .border-td3 { border-left-color: #7c3aed !important; }
+
+      .duo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .duo-card {
+        background: var(--color-white);
+        border: 2px solid var(--color-border);
+        border-radius: 10px;
+        padding: var(--spacing-lg);
+        text-align: center;
+      }
+
+      .duo-card.ollama { border-color: #7c3aed; }
+      .duo-card.continue-ext { border-color: #1e5aa8; }
+
+      .duo-card .duo-icon {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .duo-card h3 { margin-bottom: var(--spacing-sm); }
+      .duo-card.ollama h3 { color: #7c3aed; }
+      .duo-card.continue-ext h3 { color: #1e5aa8; }
+
+      .duo-card .role-badge {
+        display: inline-block;
+        margin-top: var(--spacing-sm);
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+
+      .duo-card.ollama .role-badge { background: #ede9fe; color: #7c3aed; }
+      .duo-card.continue-ext .role-badge { background: #dbeafe; color: #1e5aa8; }
+
+      .arch-diagram {
+        background: var(--color-dark);
+        color: #e0e0e0;
+        border-radius: 10px;
+        padding: var(--spacing-lg);
+        font-family: var(--font-mono);
+        font-size: 0.95rem;
+        line-height: 2;
+        text-align: center;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .arch-diagram .arch-arrow { color: #7c3aed; font-size: 1.2rem; }
+      .arch-diagram .arch-label { color: #94a3b8; font-size: 0.8rem; }
+
+      .models-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .models-table thead {
+        background: linear-gradient(135deg, #7c3aed 0%, #1e5aa8 100%);
+        color: white;
+      }
+
+      .models-table th, .models-table td {
+        padding: var(--spacing-md);
+        text-align: left;
+      }
+
+      .models-table td { border-bottom: 1px solid var(--color-border); }
+      .models-table tbody tr:hover { background: var(--color-light); }
+
+      .model-name {
+        font-family: var(--font-mono);
+        font-weight: 700;
+        color: #7c3aed;
+      }
+
+      .why-local {
+        background: linear-gradient(135deg, #ede9fe 0%, #dbeafe 100%);
+        border-left: 4px solid #7c3aed;
+        border-radius: 8px;
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .why-local h3 { color: #7c3aed; margin-bottom: var(--spacing-md); }
+
+      .why-points {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+      }
+
+      .why-point {
+        background: white;
+        border-radius: 20px;
+        padding: 6px 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #4a4a4a;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      }
+
+      @media (max-width: 768px) {
+        .duo-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html" class="active">Introduction</a></li>
+            <li><a href="TD3-partie1.html">1 · Installation</a></li>
+            <li><a href="TD3-partie2.html">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Introduction — Le duo Ollama + Continue</h2>
+            <p>
+              Deux outils complémentaires qui transforment votre poste de travail en
+              environnement IA autonome, sans cloud et sans clé API.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">15 min</span>
+              <span class="meta-item">3 modèles open-source</span>
+              <span class="meta-item">100 % local</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Deux outils complémentaires -->
+        <section class="content-section">
+          <h2>Deux outils complémentaires</h2>
+          <p>
+            Ce TD vous fait découvrir deux outils qui, combinés, transforment votre poste de
+            travail en environnement IA autonome : <strong>Ollama</strong> pour faire tourner les
+            modèles, <strong>Continue</strong> pour les utiliser directement dans VS Code.
+          </p>
+          <div class="duo-grid">
+            <div class="duo-card ollama">
+              <div class="duo-icon">🤖</div>
+              <h3>Ollama</h3>
+              <p>
+                Moteur d'inférence local. Télécharge et exécute des LLM open-source.
+                Expose une API REST sur <code>localhost:11434</code>.
+              </p>
+              <span class="role-badge">Rôle : le serveur LLM</span>
+            </div>
+            <div class="duo-card continue-ext">
+              <div class="duo-icon">🧩</div>
+              <h3>Continue</h3>
+              <p>
+                Extension VS Code open-source. Chat IA, autocomplétion, refactoring.
+                Se connecte à Ollama (ou OpenAI, Anthropic…).
+              </p>
+              <span class="role-badge">Rôle : l'interface développeur</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Architecture -->
+        <section class="content-section">
+          <h2>Architecture du TD</h2>
+          <div class="arch-diagram">
+            <div>
+              <strong style="color:#a78bfa">👨‍💻 VS Code</strong><br/>
+              <span class="arch-label">Extension Continue</span>
+            </div>
+            <div class="arch-arrow">⟷</div>
+            <div>
+              <strong style="color:#60a5fa">🌐 Page HTML</strong><br/>
+              <span class="arch-label">fetch() + JSON</span>
+            </div>
+            <div class="arch-arrow">⟷</div>
+            <div>
+              <strong style="color:#34d399">🤖 Ollama</strong><br/>
+              <span class="arch-label">localhost:11434 → LLM GGUF</span>
+            </div>
+          </div>
+          <p>
+            Ollama agit comme un serveur local : VS Code (via Continue) et vos pages HTML
+            communiquent tous les deux avec lui via des requêtes HTTP standard.
+            Aucune donnée ne quitte votre machine.
+          </p>
+        </section>
+
+        <!-- Les 3 modèles -->
+        <section class="content-section">
+          <h2>Les 3 modèles utilisés</h2>
+          <table class="models-table">
+            <thead>
+              <tr>
+                <th>Modèle</th>
+                <th>Taille</th>
+                <th>Éditeur</th>
+                <th>Points forts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="model-name">mistral:7b</span></td>
+                <td>7B (~4 Go)</td>
+                <td>Mistral AI 🇫🇷</td>
+                <td>Rapide, excellent en code et raisonnement, instruction-following</td>
+              </tr>
+              <tr>
+                <td><span class="model-name">qwen2.5:7b</span></td>
+                <td>7B (~5 Go)</td>
+                <td>Alibaba</td>
+                <td>Multilingue FR/EN, très bon en texte structuré et analyse</td>
+              </tr>
+              <tr>
+                <td><span class="model-name">llama3.2:latest</span></td>
+                <td>3B (~2 Go)</td>
+                <td>Meta</td>
+                <td>Léger, rapide, idéal pour les machines moins puissantes</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Pourquoi local ? -->
+        <section class="content-section">
+          <div class="why-local">
+            <h3>💡 Pourquoi local ?</h3>
+            <div class="why-points">
+              <span class="why-point">🔒 Aucune donnée transmise à un tiers</span>
+              <span class="why-point">📡 Fonctionnement hors ligne</span>
+              <span class="why-point">💸 Coût zéro à l'usage</span>
+              <span class="why-point">⚡ Latence maîtrisée</span>
+              <span class="why-point">🏢 Idéal pour des projets professionnels ou sensibles</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Commencer la pratique</h2>
+          <div class="cta-buttons">
+            <a href="TD3-partie1.html" class="btn">Partie 1 : Installation d'Ollama</a>
+            <a href="TD3-index.html" class="btn btn-secondary">Retour à l'accueil TD3</a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 5 - Comparateur de modèles | TD3</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .section-number {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #7c3aed;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: var(--spacing-xs);
+      }
+
+      .objective-box {
+        background: #ede9fe;
+        border-left: 4px solid #7c3aed;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .objective-box strong { color: #7c3aed; }
+
+      .prompts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .prompt-chip {
+        background: var(--color-white);
+        border: 2px solid var(--color-border);
+        border-radius: 8px;
+        padding: var(--spacing-md);
+        font-size: 0.92rem;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        padding-left: var(--spacing-xl);
+      }
+
+      .prompt-chip:hover {
+        border-color: #7c3aed;
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+      }
+
+      .prompt-chip::before {
+        content: "▶";
+        position: absolute;
+        left: var(--spacing-md);
+        color: #7c3aed;
+        font-size: 0.8rem;
+      }
+
+      .wireframe {
+        background: var(--color-dark);
+        border-radius: 10px;
+        padding: var(--spacing-lg);
+        color: #e0e0e0;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .wireframe-header {
+        background: #374151;
+        border-radius: 6px 6px 0 0;
+        padding: var(--spacing-sm) var(--spacing-md);
+        display: flex;
+        gap: var(--spacing-md);
+        align-items: center;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .wireframe-prompt-bar {
+        background: #374151;
+        border-radius: 6px;
+        padding: var(--spacing-sm) var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+        display: flex;
+        gap: var(--spacing-md);
+        align-items: center;
+      }
+
+      .wireframe-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: var(--spacing-md);
+      }
+
+      .wireframe-col {
+        background: #1f2937;
+        border-radius: 6px;
+        padding: var(--spacing-md);
+      }
+
+      .wireframe-col-header {
+        background: #374151;
+        border-radius: 4px;
+        padding: 6px;
+        text-align: center;
+        margin-bottom: var(--spacing-sm);
+        font-weight: 700;
+      }
+
+      .wireframe-placeholder {
+        background: #374151;
+        border-radius: 4px;
+        height: 8px;
+        margin-bottom: 6px;
+      }
+
+      .wireframe-placeholder.short { width: 60%; }
+      .wireframe-placeholder.time { width: 40%; background: #7c3aed; }
+
+      .test-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .test-table thead { background: linear-gradient(135deg, #7c3aed, #1e5aa8); color: white; }
+      .test-table th, .test-table td { padding: var(--spacing-md); text-align: left; border-bottom: 1px solid var(--color-border); }
+      .test-table td:not(:first-child) { min-width: 140px; }
+      .test-table .prompt-col { font-style: italic; color: #555; font-size: 0.92rem; }
+      .test-table .obs-col {
+        background: #fafafa;
+        min-height: 48px;
+        font-size: 0.88rem;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html">Introduction</a></li>
+            <li><a href="TD3-partie1.html">1 · Installation</a></li>
+            <li><a href="TD3-partie2.html">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html" class="active">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 5 — Comparateur de modèles</h2>
+            <p>
+              Envoyer le même prompt aux 3 modèles simultanément via <code>Promise.all()</code>
+              et afficher les réponses côte à côte avec le temps de réponse mesuré.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">35 min</span>
+              <span class="meta-item">Promise.all()</span>
+              <span class="meta-item">grille 3 colonnes</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5.1 Principe -->
+        <section class="content-section">
+          <div class="section-number">5.1</div>
+          <h2>Principe</h2>
+          <p>
+            Ce dernier exercice crée une page qui envoie le même prompt aux 3 modèles
+            <strong>simultanément</strong> via <code>Promise.all()</code> et affiche les réponses côte
+            à côte avec le temps de réponse mesuré.
+          </p>
+          <div class="objective-box">
+            <strong>🎯 Objectif</strong><br/>
+            <code>comparateur.html</code> : grille 3 colonnes, prompts prédéfinis (liés à vos
+            compétences MMI), mesure du temps, analyse des différences.
+          </div>
+          <p>L'idée clé derrière <code>Promise.all()</code> :</p>
+          <div class="code-block">
+            <pre>// Lancer les 3 requêtes en parallèle
+const debut = Date.now();
+const [rep1, rep2, rep3] = await Promise.all([
+  interroger("mistral", prompt),
+  interroger("qwen2.5", prompt),
+  interroger("llama3.2", prompt)
+]);
+const duree = Date.now() - debut;
+// → durée = temps de la requête la plus lente (toutes en parallèle)</pre>
+          </div>
+        </section>
+
+        <!-- 5.2 Interface à réaliser -->
+        <section class="content-section">
+          <div class="section-number">5.2</div>
+          <h2>Interface à réaliser : comparateur.html</h2>
+          <p>Réalisez une page dans ce style (wireframe) :</p>
+
+          <div class="wireframe">
+            <div class="wireframe-header">
+              <span style="color:#a78bfa; font-weight:700;">⚡ Comparateur de modèles Ollama</span>
+            </div>
+            <div class="wireframe-prompt-bar">
+              <span style="flex:1; background:#1f2937; padding:6px 10px; border-radius:4px;">Votre prompt ici...</span>
+              <span style="background:#7c3aed; color:white; padding:6px 14px; border-radius:4px; cursor:pointer;">Comparer</span>
+            </div>
+            <div style="margin-bottom: var(--spacing-sm); font-size:0.8rem; color:#94a3b8;">Prompts prédéfinis :</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:var(--spacing-md);">
+              <span style="background:#374151; padding:4px 10px; border-radius:12px; font-size:0.78rem;">API REST en 4 phrases</span>
+              <span style="background:#374151; padding:4px 10px; border-radius:12px; font-size:0.78rem;">Fonction JS tri tableau</span>
+              <span style="background:#374151; padding:4px 10px; border-radius:12px; font-size:0.78rem;">Responsive design</span>
+              <span style="background:#374151; padding:4px 10px; border-radius:12px; font-size:0.78rem;">GET vs POST</span>
+              <span style="background:#374151; padding:4px 10px; border-radius:12px; font-size:0.78rem;">JSON fiche produit</span>
+              <span style="background:#374151; padding:4px 10px; border-radius:12px; font-size:0.78rem;">Box model CSS</span>
+            </div>
+            <div class="wireframe-cols">
+              <div class="wireframe-col">
+                <div class="wireframe-col-header" style="color:#a78bfa;">🇫🇷 Mistral 7B</div>
+                <div class="wireframe-placeholder"></div>
+                <div class="wireframe-placeholder short"></div>
+                <div class="wireframe-placeholder"></div>
+                <div class="wireframe-placeholder short"></div>
+                <div class="wireframe-placeholder time"></div>
+              </div>
+              <div class="wireframe-col">
+                <div class="wireframe-col-header" style="color:#60a5fa;">🌍 Qwen2.5 7B</div>
+                <div class="wireframe-placeholder"></div>
+                <div class="wireframe-placeholder short"></div>
+                <div class="wireframe-placeholder"></div>
+                <div class="wireframe-placeholder short"></div>
+                <div class="wireframe-placeholder time"></div>
+              </div>
+              <div class="wireframe-col">
+                <div class="wireframe-col-header" style="color:#34d399;">⚡ Llama 3.2 3B</div>
+                <div class="wireframe-placeholder"></div>
+                <div class="wireframe-placeholder short"></div>
+                <div class="wireframe-placeholder"></div>
+                <div class="wireframe-placeholder short"></div>
+                <div class="wireframe-placeholder time"></div>
+              </div>
+            </div>
+          </div>
+
+          <p>Les boutons de prompts prédéfinis contiendront :</p>
+          <div class="prompts-grid">
+            <div class="prompt-chip">"Explique ce qu'est une API REST en 4 phrases."</div>
+            <div class="prompt-chip">"Écris une fonction JS pour trier un tableau d'objets par nom"</div>
+            <div class="prompt-chip">"Quels sont les avantages du responsive design ?"</div>
+            <div class="prompt-chip">"Explique la différence entre GET et POST en HTTP"</div>
+            <div class="prompt-chip">"Génère un objet JSON représentant une fiche produit e-commerce."</div>
+            <div class="prompt-chip">"Explique le box model CSS en 3 phrases avec un exemple."</div>
+          </div>
+
+          <p>
+            Complétez à l'aide de Continue pour envoyer la requête aux 3 modèles en même temps,
+            attendre les réponses et afficher le temps de réponse de chaque modèle.
+          </p>
+          <div class="code-block">
+            <pre>// Structure de base de la fonction de comparaison
+async function comparer(prompt) {
+  const modeles = ["mistral", "qwen2.5", "llama3.2"];
+
+  const resultats = await Promise.all(modeles.map(async (modele) => {
+    const debut = Date.now();
+    const res = await fetch("http://localhost:11434/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: modele,
+        prompt: prompt,
+        stream: false,
+        options: { temperature: 0.7, num_predict: 400 }
+      })
+    });
+    const data = await res.json();
+    return {
+      modele,
+      reponse: data.response,
+      duree: Date.now() - debut
+    };
+  }));
+
+  // Afficher les 3 résultats dans leurs colonnes respectives
+  afficherResultats(resultats);
+}</pre>
+          </div>
+        </section>
+
+        <!-- 5.3 Grille de test -->
+        <section class="content-section">
+          <div class="section-number">5.3</div>
+          <h2>Grille de test à remplir</h2>
+          <p>Testez avec les prompts suivants et notez vos observations (vitesse, style, qualité) :</p>
+          <div class="table-responsive">
+            <table class="test-table">
+              <thead>
+                <tr>
+                  <th>Prompt</th>
+                  <th>Mistral 7B</th>
+                  <th>Qwen2.5 7B</th>
+                  <th>Llama3.2 3B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="prompt-col">"C'est quoi une API REST ?" (pédagogie)</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                </tr>
+                <tr>
+                  <td class="prompt-col">"Fonction JS pour filtrer un tableau de produits par prix"</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                </tr>
+                <tr>
+                  <td class="prompt-col">"Génère un JSON pour une fiche produit"</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                </tr>
+                <tr>
+                  <td class="prompt-col">"Traduis et explique ce proverbe : Errare humanum est"</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                  <td class="obs-col">Vos notes...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tip-box">
+            <strong>💡 Conseil :</strong> Notez non seulement la qualité du contenu, mais aussi
+            le <strong>temps affiché</strong> sous chaque réponse. Ces données vous serviront pour
+            le tableau comparatif du bilan.
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Comparaison terminée !</h2>
+          <div class="cta-buttons">
+            <a href="TD3-bilan.html" class="btn">Bilan & Synthèse</a>
+            <a href="TD3-partie4.html" class="btn btn-secondary">Revenir au chat</a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

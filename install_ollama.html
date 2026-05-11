@@ -1436,20 +1436,24 @@
 
         <!-- Étape 2 : Télécharger un modèle -->
         <section class="content-section">
-          <h2>Étape 2 — Télécharger un modèle LLM</h2>
+          <h2>Étape 2 — Télécharger des modèles LLM</h2>
           <p>
-            Une fois Ollama installé, il faut télécharger un modèle de langage.
-            Nous allons utiliser <strong>LLaMA 3</strong> (Large Language Model
-            Meta AI), une famille de modèles développée par Meta — très
-            performant et peu gourmand en ressources.
+            Une fois Ollama installé, il faut télécharger des modèles de
+            langage. Nous vous recommandons de télécharger les trois modèles
+            suivants :
           </p>
-          <p>Ouvrez votre terminal et tapez :</p>
-          <div class="code-block"><pre>ollama pull llama3</pre></div>
-          <p>Une fois téléchargé, testez-le directement en mode chat :</p>
-          <div class="code-block"><pre>ollama run llama3</pre></div>
+          <p>Ouvrez votre terminal et tapez successivement ces commandes :</p>
+          <div class="code-block">
+            <pre>
+ollama pull mistral:7b
+ollama pull Qwen3:8b
+ollama pull llama3.2:latest</pre
+            >
+          </div>
+          <p>Une fois téléchargés, testez-en un directement en mode chat :</p>
+          <div class="code-block"><pre>ollama run llama3.2:latest</pre></div>
           <div class="tip-box">
-            <strong>📚 Autres modèles :</strong> Mistral, Phi, Gemma…
-            disponibles sur
+            <strong>📚 Autres modèles :</strong> Phi, Gemma… disponibles sur
             <a href="https://ollama.com/library" target="_blank"
               >ollama.com/library</a
             >.
@@ -1494,7 +1498,8 @@ SHIFT + CTRL + X (Windows/Linux)</pre
               <p>
                 Dans le panneau Continue :
                 <strong>Add a model → Ollama → Autodetect</strong>.
-                <em>Llama3</em> devrait apparaître dans la liste.
+                <em>Les modèles téléchargés</em> devraient apparaître dans la
+                liste.
               </p>
             </div>
           </div>
@@ -1540,15 +1545,15 @@ SHIFT + CTRL + X (Windows/Linux)</pre
               <h4>✓ Ollama opérationnel</h4>
               <ul>
                 <li><code>ollama --version</code> répond</li>
-                <li><code>ollama pull llama3</code> complété</li>
-                <li><code>ollama run llama3</code> démarre un chat</li>
+                <li><code>ollama pull llama3.2:latest</code> complété</li>
+                <li><code>ollama run llama3.2:latest</code> démarre un chat</li>
               </ul>
             </div>
             <div class="context-item sees">
               <h4>✓ Continue configuré</h4>
               <ul>
                 <li>Extension visible dans VS Code</li>
-                <li>Llama3 listé dans le panel Continue</li>
+                <li>Les modèles listés dans le panel Continue</li>
                 <li>Le chat répond à une question de test</li>
               </ul>
             </div>

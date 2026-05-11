@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 2 - Configuration de Continue | TD3</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .section-number {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #7c3aed;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: var(--spacing-xs);
+      }
+
+      .warning-box {
+        background: #fff3cd;
+        border-left: 4px solid #f59e0b;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .warning-box strong { color: #92400e; }
+
+      .info-box {
+        background: #dbeafe;
+        border-left: 4px solid #1e5aa8;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .info-box strong { color: #1e40af; }
+
+      .features-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .features-table thead { background: #7c3aed; color: white; }
+      .features-table th, .features-table td { padding: var(--spacing-md); text-align: left; }
+      .features-table td { border-bottom: 1px solid var(--color-border); }
+      .features-table tbody tr:hover { background: var(--color-light); }
+
+      .shortcut-badge {
+        background: var(--color-dark);
+        color: #e0e0e0;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        padding: 3px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+
+      .steps-numbered {
+        display: grid;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .step-item {
+        display: flex;
+        gap: var(--spacing-md);
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        align-items: flex-start;
+      }
+
+      .step-num {
+        width: 36px;
+        height: 36px;
+        background: #7c3aed;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .step-text h4 { color: #7c3aed; margin-bottom: 4px; }
+      .step-text p { margin: 0; font-size: 0.95rem; }
+
+      .exercise-box {
+        background: var(--color-white);
+        border: 2px solid #7c3aed;
+        border-radius: 10px;
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .exercise-box .exercise-title {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+        color: #7c3aed;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      .question-box {
+        background: #ede9fe;
+        border-left: 4px solid #7c3aed;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .question-box strong { color: #7c3aed; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html">Introduction</a></li>
+            <li><a href="TD3-partie1.html">1 · Installation</a></li>
+            <li><a href="TD3-partie2.html" class="active">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 2 — Configuration de Continue dans VS Code</h2>
+            <p>
+              Continue est une extension VS Code open-source qui ajoute un assistant IA
+              directement dans votre éditeur. Elle se connecte à Ollama comme backend local.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">25 min</span>
+              <span class="meta-item">VS Code requis</span>
+              <span class="meta-item">Ollama doit être actif</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2.1 Installer Continue -->
+        <section class="content-section">
+          <div class="section-number">2.1</div>
+          <h2>Installer l'extension Continue</h2>
+          <p>Ouvrez VS Code et accédez au panneau des extensions :</p>
+          <div class="steps-numbered">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <h4>Ouvrir le panneau Extensions</h4>
+                <p>
+                  <span class="shortcut-badge">Ctrl+Shift+X</span> (Windows/Linux) ou
+                  <span class="shortcut-badge">Cmd+Shift+X</span> (macOS)
+                </p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <h4>Rechercher "Continue"</h4>
+                <p>Tapez <strong>Continue</strong> dans la barre de recherche.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <h4>Installer l'extension officielle</h4>
+                <p>Installez <strong>"Continue — open-source AI code agent"</strong> (éditeur : <em>continue.dev</em>).</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-text">
+                <h4>Recharger VS Code</h4>
+                <p>Attendez que l'installation se termine, puis rechargez VS Code si demandé.</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-box">
+            <strong>💡 Identification de l'extension</strong><br/>
+            Vérifiez bien que l'éditeur est <strong>continue.dev</strong> et que le logo est le <strong>C orange</strong>.
+            C'est l'extension officielle avec plus de 150 000 installations.
+          </div>
+        </section>
+
+        <!-- 2.2 Connecter Continue à Ollama -->
+        <section class="content-section">
+          <div class="section-number">2.2</div>
+          <h2>Connecter Continue à Ollama</h2>
+          <p>Une fois installée, Continue doit être configuré pour utiliser Ollama comme fournisseur de modèles :</p>
+          <div class="steps-numbered">
+            <div class="step-item">
+              <div class="step-num">5</div>
+              <div class="step-text">
+                <h4>Ouvrir le panneau Continue</h4>
+                <p>Cliquer sur l'icône Continue dans la barre latérale gauche de VS Code (logo C orange).</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">6</div>
+              <div class="step-text">
+                <h4>Ajouter un modèle</h4>
+                <p>Dans le panneau Continue qui s'ouvre, cliquer sur le bouton <strong>"+ Add a model"</strong>.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">7</div>
+              <div class="step-text">
+                <h4>Sélectionner Ollama</h4>
+                <p>Choisir le fournisseur : <strong>Ollama</strong>.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">8</div>
+              <div class="step-text">
+                <h4>Autodetect</h4>
+                <p>Cliquer sur <strong>"Autodetect"</strong> — Continue détecte automatiquement les modèles installés localement.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">9</div>
+              <div class="step-text">
+                <h4>Sélectionner Mistral</h4>
+                <p>Les 3 modèles (mistral, qwen2.5, llama3.2) apparaissent dans la liste : sélectionner <strong>mistral</strong> pour commencer.</p>
+              </div>
+            </div>
+          </div>
+          <div class="warning-box">
+            <strong>⚠️ Ollama doit être actif</strong><br/>
+            Si Continue n'autodetecte aucun modèle, vérifiez qu'Ollama est bien démarré
+            (<code>ollama serve</code> dans un terminal). Le serveur doit répondre sur
+            <code>localhost:11434</code>.
+          </div>
+        </section>
+
+        <!-- 2.3 config.json -->
+        <section class="content-section">
+          <div class="section-number">2.3</div>
+          <h2>Fichier de configuration config.json</h2>
+          <p>
+            Continue stocke sa configuration dans un fichier JSON. Vous pouvez l'éditer directement
+            via le lien <strong>"Open config.json"</strong> en bas du panneau Continue.
+            Voici à quoi il ressemble après configuration :
+          </p>
+          <div class="code-block">
+            <pre>name: Local Config
+version: 1.0.0
+schema: v1
+models:
+  - name: Mistral
+    provider: ollama
+    model: mistral
+    roles:
+      - chat
+      - apply
+  - name: Qwen2.5 7B
+    provider: ollama
+    model: qwen2.5
+    roles:
+      - chat
+      - autocomplete
+  - name: Llama 3.2
+    provider: ollama
+    model: llama3.2
+    roles:
+      - chat
+      - autocomplete</pre>
+          </div>
+          <div class="info-box">
+            <strong>💡 Les rôles disponibles</strong><br/>
+            <code>chat</code> : utilisé dans le panneau de conversation.<br/>
+            <code>autocomplete</code> : complétion de code inline.<br/>
+            <code>apply</code> : modification directe d'un bloc de code sélectionné.<br/>
+            <code>embed</code> : pour les modèles d'embedding (recherche sémantique).
+          </div>
+        </section>
+
+        <!-- 2.4 Fonctionnalités à tester -->
+        <section class="content-section">
+          <div class="section-number">2.4</div>
+          <h2>Fonctionnalités de Continue à tester</h2>
+          <p>Avant de coder, explorez les 3 usages principaux de Continue :</p>
+          <table class="features-table">
+            <thead>
+              <tr>
+                <th>Fonctionnalité</th>
+                <th>Raccourci</th>
+                <th>Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Chat IA</strong></td>
+                <td><span class="shortcut-badge">Ctrl+L</span> / <span class="shortcut-badge">Cmd+L</span></td>
+                <td>Poser une question au modèle, obtenir une explication ou du code</td>
+              </tr>
+              <tr>
+                <td><strong>Autocomplétion</strong></td>
+                <td><span class="shortcut-badge">Tab</span> (inline)</td>
+                <td>Suggestions de complétion de code en cours de frappe</td>
+              </tr>
+              <tr>
+                <td><strong>Édition rapide</strong></td>
+                <td><span class="shortcut-badge">Ctrl+I</span> / <span class="shortcut-badge">Cmd+I</span></td>
+                <td>Sélectionner du code → demander une modification directe</td>
+              </tr>
+              <tr>
+                <td><strong>Explication</strong></td>
+                <td>Clic droit → Ask Continue</td>
+                <td>Sélectionner du code → demander une explication</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 2.5 Exercice de prise en main -->
+        <section class="content-section">
+          <div class="section-number">2.5</div>
+          <h2>Exercice de prise en main Continue</h2>
+          <div class="exercise-box">
+            <div class="exercise-title">
+              <span>🎯</span>
+              <span>Exercice — Premier contact avec Continue</span>
+            </div>
+            <p>Créez un fichier <code>test.html</code> dans VS Code et effectuez les actions suivantes :</p>
+            <div class="steps-numbered">
+              <div class="step-item">
+                <div class="step-num">10</div>
+                <div class="step-text">
+                  <h4>Tester l'autocomplétion</h4>
+                  <p>Tapez <code>&lt;!DOCTYPE html&gt;</code> et observez l'autocomplétion de Llama3.2 (appuyez sur <span class="shortcut-badge">Tab</span> pour accepter).</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">11</div>
+                <div class="step-text">
+                  <h4>Utiliser le chat</h4>
+                  <p>Ouvrez le chat Continue (<span class="shortcut-badge">Cmd+L</span>) et demandez : <em>"Génère une page HTML avec un formulaire de contact simple"</em>.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">12</div>
+                <div class="step-text">
+                  <h4>Édition rapide</h4>
+                  <p>Sélectionnez le code généré, faites <span class="shortcut-badge">Cmd+I</span> et demandez : <em>"Ajoute une validation JavaScript sur le champ email"</em>.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">13</div>
+                <div class="step-text">
+                  <h4>Comparer les modèles</h4>
+                  <p>Comparez la qualité des réponses en changeant de modèle via le sélecteur en haut du panneau Continue.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="question-box">
+            <strong>📝 Question de réflexion</strong><br/>
+            Quel modèle produit les suggestions d'autocomplétion les plus pertinentes ?
+            Lequel génère le code le plus lisible depuis le chat ? Notez vos observations.
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Continue est configuré !</h2>
+          <div class="cta-buttons">
+            <a href="TD3-partie3.html" class="btn">Partie 3 : Premier appel API</a>
+            <a href="TD3-partie1.html" class="btn btn-secondary">Revenir à l'installation</a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

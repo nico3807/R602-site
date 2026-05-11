@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 4 - Interface de chat | TD3</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .section-number {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #7c3aed;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: var(--spacing-xs);
+      }
+
+      .diff-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .diff-card {
+        background: var(--color-white);
+        border: 2px solid var(--color-border);
+        border-radius: 8px;
+        padding: var(--spacing-lg);
+      }
+
+      .diff-card.generate { border-color: #7c3aed; }
+      .diff-card.chat { border-color: #1e5aa8; }
+      .diff-card.generate h3 { color: #7c3aed; }
+      .diff-card.chat h3 { color: #1e5aa8; }
+
+      .diff-card code {
+        background: var(--color-light);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.88rem;
+      }
+
+      .key-diff {
+        background: #ede9fe;
+        border-left: 4px solid #7c3aed;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .key-diff strong { color: #7c3aed; }
+
+      .improvement-card {
+        background: var(--color-white);
+        border: 2px solid var(--color-border);
+        border-radius: 10px;
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .improvement-card h3 {
+        color: #7c3aed;
+        margin-bottom: var(--spacing-md);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+      }
+
+      .improvement-badge {
+        background: #7c3aed;
+        color: white;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .optional-badge {
+        background: #1e5aa8;
+        color: white;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .improvements-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .improvements-list li {
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        padding: var(--spacing-sm) var(--spacing-md);
+        display: flex;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+      }
+
+      .improvements-list li::before {
+        content: "→";
+        color: #7c3aed;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .continue-tip {
+        background: #dbeafe;
+        border-left: 4px solid #1e5aa8;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .continue-tip strong { color: #1e40af; }
+
+      .pedagogy-box {
+        background: #d4edda;
+        border-left: 4px solid #1a7a3c;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+      .pedagogy-box strong { color: #1a7a3c; }
+
+      @media (max-width: 768px) {
+        .diff-box { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html">Introduction</a></li>
+            <li><a href="TD3-partie1.html">1 · Installation</a></li>
+            <li><a href="TD3-partie2.html">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html" class="active">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 4 — Interface de chat complète</h2>
+            <p>
+              Créer une interface de chat avec historique de conversation,
+              en utilisant l'endpoint <code>/api/chat</code> d'Ollama.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">40 min</span>
+              <span class="meta-item">endpoint /api/chat</span>
+              <span class="meta-item">historique de messages</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.1 /api/chat vs /api/generate -->
+        <section class="content-section">
+          <div class="section-number">4.1</div>
+          <h2>/api/chat vs /api/generate</h2>
+          <p>
+            Vous venez d'utiliser <code>/api/generate</code> pour des prompts ponctuels. Pour une vraie
+            conversation, Ollama expose <code>/api/chat</code> qui maintient le contexte grâce à un
+            tableau de messages avec des rôles.
+          </p>
+          <div class="diff-box">
+            <div class="diff-card generate">
+              <h3>🔹 /api/generate</h3>
+              <p>Reçoit un <code>prompt</code> (string)</p>
+              <p>Renvoie <code>data.response</code></p>
+              <p>Usage : prompt unique, sans contexte</p>
+            </div>
+            <div class="diff-card chat">
+              <h3>🔷 /api/chat</h3>
+              <p>Reçoit des <code>messages</code> (array)</p>
+              <p>Renvoie <code>data.message.content</code></p>
+              <p>Usage : conversation multi-tours avec historique</p>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre>// Structure pour /api/chat - maintien du contexte
+{
+  "model": "mistral",
+  "messages": [
+    { "role": "system",    "content": "Tu es un assistant pédagogique MMI." },
+    { "role": "user",      "content": "Qu'est-ce qu'une API REST ?" },
+    { "role": "assistant", "content": "Une API REST est..." },
+    { "role": "user",      "content": "Donne-moi un exemple concret en JS." }
+  ],
+  "stream": false
+}
+
+// La réponse est dans : data.message.content</pre>
+          </div>
+          <div class="key-diff">
+            <strong>💡 Différence clé</strong><br/>
+            <code>/api/generate</code> reçoit un <code>prompt</code> (string) et renvoie <code>data.response</code>.
+            <code>/api/chat</code> reçoit des <code>messages</code> (array) et renvoie <code>data.message.content</code>.
+            C'est ce que Continue utilise en interne pour son chat.
+          </div>
+        </section>
+
+        <!-- 4.2 Code chat.html -->
+        <section class="content-section">
+          <div class="section-number">4.2</div>
+          <h2>Code : chat.html</h2>
+          <p>Créez <code>chat.html</code> — le même format de chat que Continue, mais dans votre propre page :</p>
+          <div class="code-block">
+            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Chat Ollama&lt;/title&gt;
+  &lt;style&gt;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f1f5f9;
+           display: flex; flex-direction: column; height: 100vh; }
+    header { background: #2563eb; color: white; padding: 14px 20px;
+             display: flex; align-items: center; gap: 12px; }
+    header h1 { font-size: 1.1rem; flex: 1; }
+    select { padding: 6px 10px; border-radius: 6px; border: none; cursor: pointer; }
+    button.sec { background: rgba(255,255,255,0.2); color: white;
+                 border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px;
+                 border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+    #messages { flex: 1; overflow-y: auto; padding: 16px;
+                display: flex; flex-direction: column; gap: 10px; }
+    .msg { max-width: 78%; padding: 12px 16px; border-radius: 12px;
+           line-height: 1.5; font-size: 0.9rem; white-space: pre-wrap; }
+    .user  { background: #2563eb; color: white; align-self: flex-end;
+             border-bottom-right-radius: 3px; }
+    .assistant { background: white; border: 1px solid #e2e8f0;
+                 align-self: flex-start; border-bottom-left-radius: 3px; }
+    .meta { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; }
+    .attente { opacity: 0.6; font-style: italic; }
+    footer { background: white; border-top: 1px solid #e2e8f0;
+             padding: 12px; display: flex; gap: 8px; }
+    textarea { flex: 1; padding: 10px; border: 1px solid #cbd5e1;
+               border-radius: 8px; resize: none; font-family: inherit;
+               font-size: 0.9rem; }
+    button#btn { padding: 10px 18px; background: #2563eb; color: white;
+                 border: none; border-radius: 8px; cursor: pointer;
+                 font-weight: bold; }
+    button#btn:disabled { background: #94a3b8; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Chat Ollama&lt;/h1&gt;
+    &lt;select id="modele"&gt;
+      &lt;option value="mistral"&gt;Mistral 7B&lt;/option&gt;
+      &lt;option value="qwen2.5"&gt;Qwen2.5 7B&lt;/option&gt;
+      &lt;option value="llama3.2"&gt;Llama 3.2 3B&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button class="sec" onclick="reinit()"&gt;Nouvelle conversation&lt;/button&gt;
+  &lt;/header&gt;
+
+  &lt;div id="messages"&gt;&lt;/div&gt;
+
+  &lt;footer&gt;
+    &lt;textarea id="saisie" rows="2"
+      placeholder="Tapez votre message... (Entrée pour envoyer, Maj+Entrée pour saut de ligne)"
+      onkeydown="if(event.key==='Enter'&amp;&amp;!event.shiftKey){event.preventDefault();envoyer()}"&gt;&lt;/textarea&gt;
+    &lt;button id="btn" onclick="envoyer()"&gt;Envoyer&lt;/button&gt;
+  &lt;/footer&gt;
+
+  &lt;script&gt;
+    const API = "http://localhost:11434/api/chat";
+    let historique = [];
+
+    function ajouterMsg(role, texte, modele = "") {
+      const zone = document.getElementById("messages");
+      const div = document.createElement("div");
+      div.className = "msg " + role;
+      div.textContent = texte;
+      if (role === "assistant" &amp;&amp; modele) {
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = "⚡ " + modele;
+        div.appendChild(meta);
+      }
+      zone.appendChild(div);
+      zone.scrollTop = zone.scrollHeight;
+      return div;
+    }
+
+    async function envoyer() {
+      const saisie = document.getElementById("saisie");
+      const btn = document.getElementById("btn");
+      const texte = saisie.value.trim();
+      if (!texte) return;
+      const modele = document.getElementById("modele").value;
+      saisie.value = "";
+      btn.disabled = true;
+      ajouterMsg("user", texte);
+      historique.push({ role: "user", content: texte });
+      const msgEnCours = ajouterMsg("assistant", "Rédaction en cours...");
+      msgEnCours.classList.add("attente");
+      try {
+        const res = await fetch(API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ model: modele, messages: historique, stream: false })
+        });
+        const data = await res.json();
+        const rep = data.message.content;
+        msgEnCours.textContent = rep;
+        msgEnCours.classList.remove("attente");
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = "⚡ " + modele;
+        msgEnCours.appendChild(meta);
+        historique.push({ role: "assistant", content: rep });
+      } catch (err) {
+        msgEnCours.textContent = "Erreur : " + err.message;
+      } finally {
+        btn.disabled = false;
+        saisie.focus();
+      }
+    }
+
+    function reinit() {
+      historique = [];
+      document.getElementById("messages").innerHTML = "";
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+          </div>
+        </section>
+
+        <!-- 4.3 Améliorations -->
+        <section class="content-section">
+          <div class="section-number">4.3</div>
+          <h2>Améliorations guidées</h2>
+          <p>Implémentez au moins 2 de ces améliorations. Utilisez Continue pour vous aider !</p>
+
+          <!-- Amélioration 1 -->
+          <div class="improvement-card">
+            <h3>
+              <span class="improvement-badge">Amélioration 1</span>
+              Message système configurable
+            </h3>
+            <p>
+              Dans <code>/api/chat</code>, le premier message peut avoir le rôle <code>"system"</code>.
+              C'est une instruction invisible pour l'utilisateur qui configure le comportement du modèle
+              pour toute la conversation — un "briefing" donné au LLM avant qu'il réponde.
+            </p>
+            <br/>
+            <p><strong>1.</strong> Ajouter un <code>&lt;input&gt;</code> en haut de la page :</p>
+            <div class="code-block">
+              <pre>&lt;input id="systeme" type="text"
+  placeholder="Ex : Tu es un assistant pédagogique MMI, réponds en français, de façon concise."
+  style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.9rem;"&gt;</pre>
+            </div>
+            <p><strong>2.</strong> Dans la fonction <code>envoyer()</code>, injecter le message système en tête du tableau <code>messages</code> :</p>
+            <div class="code-block">
+              <pre>async function envoyer() {
+  // ... récupération du texte, modèle, etc.
+
+  const systeme = document.getElementById('systeme').value.trim();
+  const messages = [];
+  if (systeme) {
+    messages.push({ role: 'system', content: systeme });
+  }
+  messages.push(...historique);
+
+  const res = await fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: modele, messages, stream: false })
+  });
+  // ...
+}</pre>
+            </div>
+            <p><strong>3.</strong> Testez avec différents messages système :</p>
+            <ul class="highlight-list">
+              <li>"Tu es un expert en HTML/CSS. Réponds uniquement avec du code, sans explication."</li>
+              <li>"Tu es un professeur qui explique à des étudiants de BUT MMI. Sois pédagogique et utilise des analogies."</li>
+              <li>"Tu réponds uniquement en JSON structuré, sans texte libre."</li>
+            </ul>
+            <div class="pedagogy-box">
+              <strong>💡 L'intérêt pédagogique</strong><br/>
+              Changer ce seul champ transforme radicalement le comportement du modèle sans toucher au reste du code.
+              C'est le principe fondamental du <strong>prompt engineering</strong> — une compétence clé pour intégrer
+              des LLM dans vos projets.
+            </div>
+          </div>
+
+          <!-- Autres améliorations -->
+          <div class="improvement-card">
+            <h3>
+              <span class="optional-badge">Au choix</span>
+              Autres améliorations
+            </h3>
+            <ul class="improvements-list">
+              <li>Afficher le temps de réponse en millisecondes sous chaque message assistant</li>
+              <li>Ajouter un bouton Copier sur chaque réponse (<code>navigator.clipboard.writeText</code>)</li>
+              <li>Sauvegarder l'historique dans <code>localStorage</code> et le restaurer au rechargement</li>
+              <li>Implémenter le streaming : <code>stream: true</code> + lecture du <code>ReadableStream</code> token par token</li>
+            </ul>
+          </div>
+
+          <div class="continue-tip">
+            <strong>💡 Astuce Continue</strong><br/>
+            Sélectionnez la fonction <code>envoyer()</code> dans VS Code, ouvrez le chat Continue
+            (<span style="font-family:monospace">Cmd+L</span>) et demandez :
+            <em>"Modifie cette fonction pour afficher le temps de réponse en ms sous chaque message"</em>.
+            Comparez Mistral vs Qwen2.5 sur cette tâche de code.
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Interface de chat créée !</h2>
+          <div class="cta-buttons">
+            <a href="TD3-partie5.html" class="btn">Partie 5 : Comparateur de modèles</a>
+            <a href="TD3-partie3.html" class="btn btn-secondary">Revenir à l'API REST</a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

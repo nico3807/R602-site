@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TD3 - Ollama + Continue | LLM Locaux</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .td3-hero {
+        background: linear-gradient(135deg, #7c3aed 0%, #1e5aa8 100%);
+        color: var(--color-white);
+        padding: var(--spacing-xl) var(--spacing-lg);
+        border-radius: 12px;
+        margin-bottom: var(--spacing-xl);
+        text-align: center;
+      }
+
+      .td3-hero h2 {
+        color: var(--color-white);
+        font-size: 2.2rem;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .td3-hero p {
+        font-size: 1.15rem;
+        margin-bottom: var(--spacing-lg);
+        opacity: 0.95;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .planning-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .planning-table thead {
+        background: linear-gradient(135deg, #7c3aed 0%, #1e5aa8 100%);
+        color: var(--color-white);
+      }
+
+      .planning-table th {
+        padding: var(--spacing-md);
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .planning-table td {
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .planning-table tbody tr:hover {
+        background-color: var(--color-light);
+      }
+
+      .planning-table .time-badge {
+        background-color: #7c3aed;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .nav-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-xl);
+      }
+
+      .nav-card {
+        background-color: var(--color-white);
+        border: 2px solid var(--color-border);
+        border-radius: 10px;
+        padding: var(--spacing-lg);
+        text-decoration: none;
+        color: var(--color-dark);
+        transition: var(--transition);
+        display: block;
+      }
+
+      .nav-card:hover {
+        border-color: #7c3aed;
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.15);
+        transform: translateY(-3px);
+      }
+
+      .nav-card-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .nav-card-number {
+        width: 44px;
+        height: 44px;
+        background: linear-gradient(135deg, #7c3aed 0%, #1e5aa8 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .nav-card h3 {
+        color: #7c3aed;
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .nav-card p {
+        font-size: 0.92rem;
+        color: #555;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .nav-card .card-time {
+        margin-top: var(--spacing-sm);
+        font-size: 0.82rem;
+        color: #7c3aed;
+        font-weight: 600;
+      }
+
+      .objectives-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .objective-card {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        text-align: center;
+      }
+
+      .objective-icon {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .objective-card h3 {
+        color: #7c3aed;
+        margin-bottom: var(--spacing-sm);
+        font-size: 1rem;
+      }
+
+      .objective-card p {
+        font-size: 0.9rem;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html" class="active">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html">Introduction</a></li>
+            <li><a href="TD3-partie1.html">1 · Installation</a></li>
+            <li><a href="TD3-partie2.html">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <!-- Hero -->
+        <section class="td3-hero">
+          <h2>TD3 — Ollama + Continue</h2>
+          <p>
+            LLM locaux · VS Code · API REST · Comparaison de modèles<br />
+            <strong>Mistral · Qwen2.5 · Llama3.2</strong> — sans cloud, sans clé API
+          </p>
+          <div class="hero-meta">
+            <span class="meta-item">Durée : 3 heures</span>
+            <span class="meta-item">Niveau : BUT3 MMI</span>
+            <span class="meta-item">IUT Béziers</span>
+          </div>
+        </section>
+
+        <!-- Objectifs -->
+        <section class="content-section">
+          <h2>Objectifs du TD</h2>
+          <div class="objectives-grid">
+            <div class="objective-card">
+              <div class="objective-icon">⚙️</div>
+              <h3>Installer</h3>
+              <p>Déployer Ollama et télécharger 3 modèles open-source en local</p>
+            </div>
+            <div class="objective-card">
+              <div class="objective-icon">🧩</div>
+              <h3>Configurer Continue</h3>
+              <p>Connecter l'extension VS Code à Ollama comme backend LLM</p>
+            </div>
+            <div class="objective-card">
+              <div class="objective-icon">🌐</div>
+              <h3>Développer</h3>
+              <p>Créer des interfaces HTML/JS qui consomment l'API REST Ollama</p>
+            </div>
+            <div class="objective-card">
+              <div class="objective-icon">📊</div>
+              <h3>Comparer</h3>
+              <p>Évaluer les 3 modèles côte à côte sur différentes tâches</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Planning -->
+        <section class="content-section">
+          <h2>Planning de la séance</h2>
+          <table class="planning-table">
+            <thead>
+              <tr>
+                <th>Durée</th>
+                <th>Partie</th>
+                <th>Contenu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="time-badge">15 min</span></td>
+                <td><a href="TD3-intro.html">Introduction</a></td>
+                <td>Qu'est-ce qu'Ollama ? Continue ? Architecture LLM local</td>
+              </tr>
+              <tr>
+                <td><span class="time-badge">30 min</span></td>
+                <td><a href="TD3-partie1.html">Partie 1</a></td>
+                <td>Installation d'Ollama + téléchargement des 3 modèles</td>
+              </tr>
+              <tr>
+                <td><span class="time-badge">25 min</span></td>
+                <td><a href="TD3-partie2.html">Partie 2</a></td>
+                <td>Configuration de Continue dans VS Code avec Ollama</td>
+              </tr>
+              <tr>
+                <td><span class="time-badge">35 min</span></td>
+                <td><a href="TD3-partie3.html">Partie 3</a></td>
+                <td>Premier appel API : page HTML + fetch vers /api/generate</td>
+              </tr>
+              <tr>
+                <td><span class="time-badge">40 min</span></td>
+                <td><a href="TD3-partie4.html">Partie 4</a></td>
+                <td>Interface de chat complète avec historique (/api/chat)</td>
+              </tr>
+              <tr>
+                <td><span class="time-badge">35 min</span></td>
+                <td><a href="TD3-partie5.html">Partie 5</a></td>
+                <td>Comparateur côte à côte des 3 modèles</td>
+              </tr>
+              <tr>
+                <td><span class="time-badge">10 min</span></td>
+                <td><a href="TD3-bilan.html">Bilan</a></td>
+                <td>Tableau comparatif et synthèse</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Navigation rapide -->
+        <section class="content-section">
+          <h2>Navigation du TD</h2>
+          <div class="nav-cards">
+            <a href="TD3-intro.html" class="nav-card">
+              <div class="nav-card-header">
+                <div class="nav-card-number">0</div>
+                <h3>Introduction</h3>
+              </div>
+              <p>Le duo Ollama + Continue, architecture, les 3 modèles utilisés et pourquoi travailler en local.</p>
+              <div class="card-time">15 min</div>
+            </a>
+            <a href="TD3-partie1.html" class="nav-card">
+              <div class="nav-card-header">
+                <div class="nav-card-number">1</div>
+                <h3>Installation d'Ollama</h3>
+              </div>
+              <p>Installer Ollama, démarrer le serveur, télécharger Mistral, Qwen2.5 et Llama3.2.</p>
+              <div class="card-time">30 min</div>
+            </a>
+            <a href="TD3-partie2.html" class="nav-card">
+              <div class="nav-card-header">
+                <div class="nav-card-number">2</div>
+                <h3>Configuration de Continue</h3>
+              </div>
+              <p>Installer l'extension VS Code, connecter Ollama, découvrir le chat, l'autocomplétion et l'édition rapide.</p>
+              <div class="card-time">25 min</div>
+            </a>
+            <a href="TD3-partie3.html" class="nav-card">
+              <div class="nav-card-header">
+                <div class="nav-card-number">3</div>
+                <h3>Premier appel API REST</h3>
+              </div>
+              <p>L'API <code>/api/generate</code> d'Ollama, structure JSON, page HTML avec fetch().</p>
+              <div class="card-time">35 min</div>
+            </a>
+            <a href="TD3-partie4.html" class="nav-card">
+              <div class="nav-card-header">
+                <div class="nav-card-number">4</div>
+                <h3>Interface de chat</h3>
+              </div>
+              <p>L'endpoint <code>/api/chat</code> avec historique, interface complète, message système, streaming.</p>
+              <div class="card-time">40 min</div>
+            </a>
+            <a href="TD3-partie5.html" class="nav-card">
+              <div class="nav-card-header">
+                <div class="nav-card-number">5</div>
+                <h3>Comparateur de modèles</h3>
+              </div>
+              <p>Envoyer le même prompt aux 3 modèles via <code>Promise.all()</code>, affichage côte à côte avec temps de réponse.</p>
+              <div class="card-time">35 min</div>
+            </a>
+            <a href="TD3-bilan.html" class="nav-card">
+              <div class="nav-card-header">
+                <div class="nav-card-number">6</div>
+                <h3>Bilan & Synthèse</h3>
+              </div>
+              <p>Tableau comparatif des 3 modèles, questions de synthèse, pistes pour aller plus loin.</p>
+              <div class="card-time">10 min</div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Prérequis -->
+        <section class="content-section">
+          <h2>Prérequis & Outils</h2>
+          <div class="card-container">
+            <div class="concept-card">
+              <h3>📚 Prérequis</h3>
+              <ul class="highlight-list">
+                <li>HTML, CSS, JavaScript (fetch)</li>
+                <li>Utilisation basique du terminal</li>
+                <li>VS Code installé</li>
+              </ul>
+            </div>
+            <div class="concept-card">
+              <h3>🔧 Outils nécessaires</h3>
+              <ul class="highlight-list">
+                <li>Navigateur web</li>
+                <li>VS Code + extension Continue</li>
+                <li>Terminal (PowerShell, bash ou zsh)</li>
+                <li>Ollama (installé en Partie 1)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Prêt à commencer ?</h2>
+          <div class="cta-buttons">
+            <a href="TD3-intro.html" class="btn">Lire l'introduction</a>
+            <a href="TD3-partie1.html" class="btn btn-secondary">Partie 1 : Installation</a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

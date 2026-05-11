@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bilan & Synthèse - TD3 Ollama + Continue</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .section-number {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #7c3aed;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: var(--spacing-xs);
+      }
+
+      .rating-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .rating-table thead {
+        background: linear-gradient(135deg, #7c3aed, #1e5aa8);
+        color: white;
+      }
+
+      .rating-table th, .rating-table td {
+        padding: var(--spacing-md);
+        text-align: left;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .rating-table td:not(:first-child) {
+        text-align: center;
+      }
+
+      .rating-table .criteria { font-weight: 500; color: #333; }
+      .rating-table .given { background: #f1f5f9; color: #555; font-style: italic; font-size: 0.9rem; }
+
+      .star-rating {
+        display: flex;
+        gap: 3px;
+        justify-content: center;
+      }
+
+      .star {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid #7c3aed;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .star.filled { background: #7c3aed; }
+
+      .questions-list {
+        display: grid;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .question-item {
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        display: flex;
+        gap: var(--spacing-md);
+        align-items: flex-start;
+      }
+
+      .question-num {
+        width: 36px;
+        height: 36px;
+        background: #7c3aed;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+
+      .question-text { margin: 0; line-height: 1.7; font-size: 0.97rem; }
+
+      .further-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .further-card {
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: var(--spacing-lg);
+      }
+
+      .further-card h4 {
+        color: #7c3aed;
+        margin-bottom: var(--spacing-sm);
+        font-size: 0.95rem;
+      }
+
+      .further-card p {
+        font-size: 0.87rem;
+        color: #555;
+        margin: 0;
+      }
+
+      .resources-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .resources-table thead { background: #1e5aa8; color: white; }
+      .resources-table th, .resources-table td { padding: var(--spacing-md); text-align: left; border-bottom: 1px solid var(--color-border); }
+      .resources-table a { color: #7c3aed; font-family: var(--font-mono); font-size: 0.88rem; }
+
+      .congrats-box {
+        background: linear-gradient(135deg, #ede9fe 0%, #dbeafe 100%);
+        border-left: 4px solid #7c3aed;
+        border-radius: 8px;
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+        text-align: center;
+      }
+
+      .congrats-box h3 { color: #7c3aed; font-size: 1.3rem; margin-bottom: var(--spacing-sm); }
+      .congrats-box p { color: #4a4a4a; margin: 0; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html">Introduction</a></li>
+            <li><a href="TD3-partie1.html">1 · Installation</a></li>
+            <li><a href="TD3-partie2.html">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html" class="active">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Bilan — Comparaison et Synthèse</h2>
+            <p>
+              Notez vos observations, comparez les 3 modèles et répondez aux questions de synthèse
+              pour consolider vos apprentissages.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">10 min</span>
+              <span class="meta-item">Réflexion</span>
+              <span class="meta-item">Tableau comparatif</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6.1 Tableau comparatif -->
+        <section class="content-section">
+          <div class="section-number">6.1</div>
+          <h2>Tableau comparatif à compléter</h2>
+          <p>Notez de 1 à 5 chaque critère selon vos observations de la séance (cliquez sur les cercles) :</p>
+          <div class="table-responsive">
+            <table class="rating-table" id="ratingTable">
+              <thead>
+                <tr>
+                  <th>Critère</th>
+                  <th>Mistral 7B</th>
+                  <th>Qwen2.5 7B</th>
+                  <th>Llama3.2 3B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="criteria">Vitesse de réponse</td>
+                  <td><div class="star-rating" data-model="mistral" data-crit="vitesse"></div></td>
+                  <td><div class="star-rating" data-model="qwen" data-crit="vitesse"></div></td>
+                  <td><div class="star-rating" data-model="llama" data-crit="vitesse"></div></td>
+                </tr>
+                <tr>
+                  <td class="criteria">Qualité des explications techniques</td>
+                  <td><div class="star-rating" data-model="mistral" data-crit="explication"></div></td>
+                  <td><div class="star-rating" data-model="qwen" data-crit="explication"></div></td>
+                  <td><div class="star-rating" data-model="llama" data-crit="explication"></div></td>
+                </tr>
+                <tr>
+                  <td class="criteria">Qualité du code généré</td>
+                  <td><div class="star-rating" data-model="mistral" data-crit="code"></div></td>
+                  <td><div class="star-rating" data-model="qwen" data-crit="code"></div></td>
+                  <td><div class="star-rating" data-model="llama" data-crit="code"></div></td>
+                </tr>
+                <tr>
+                  <td class="criteria">Réponses en français</td>
+                  <td><div class="star-rating" data-model="mistral" data-crit="fr"></div></td>
+                  <td><div class="star-rating" data-model="qwen" data-crit="fr"></div></td>
+                  <td><div class="star-rating" data-model="llama" data-crit="fr"></div></td>
+                </tr>
+                <tr>
+                  <td class="criteria">Suggestions d'autocomplétion (Continue)</td>
+                  <td><div class="star-rating" data-model="mistral" data-crit="autocomplete"></div></td>
+                  <td><div class="star-rating" data-model="qwen" data-crit="autocomplete"></div></td>
+                  <td><div class="star-rating" data-model="llama" data-crit="autocomplete"></div></td>
+                </tr>
+                <tr>
+                  <td class="criteria">Chat continu / cohérence contextuelle</td>
+                  <td><div class="star-rating" data-model="mistral" data-crit="coherence"></div></td>
+                  <td><div class="star-rating" data-model="qwen" data-crit="coherence"></div></td>
+                  <td><div class="star-rating" data-model="llama" data-crit="coherence"></div></td>
+                </tr>
+                <tr>
+                  <td class="criteria">RAM requise</td>
+                  <td class="given">~4 Go</td>
+                  <td class="given">~5 Go</td>
+                  <td class="given">~2 Go</td>
+                </tr>
+                <tr>
+                  <td class="criteria"><strong>Note globale /5</strong></td>
+                  <td><div class="star-rating" data-model="mistral" data-crit="global"></div></td>
+                  <td><div class="star-rating" data-model="qwen" data-crit="global"></div></td>
+                  <td><div class="star-rating" data-model="llama" data-crit="global"></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 6.2 Questions de synthèse -->
+        <section class="content-section">
+          <div class="section-number">6.2</div>
+          <h2>Questions de synthèse</h2>
+          <div class="questions-list">
+            <div class="question-item">
+              <div class="question-num">18</div>
+              <p class="question-text">
+                Dans quel cas préféreriez-vous utiliser Continue + Ollama plutôt que GitHub Copilot
+                ou ChatGPT ? Justifiez.
+              </p>
+            </div>
+            <div class="question-item">
+              <div class="question-num">19</div>
+              <p class="question-text">
+                Quelle différence avez-vous observée entre <code>/api/generate</code> et
+                <code>/api/chat</code> ? Dans quel cas utiliser l'un ou l'autre ?
+              </p>
+            </div>
+            <div class="question-item">
+              <div class="question-num">20</div>
+              <p class="question-text">
+                Comment pourriez-vous intégrer Ollama dans un projet de SAÉ ou de stage ?
+                Donnez un exemple concret.
+              </p>
+            </div>
+            <div class="question-item">
+              <div class="question-num">21</div>
+              <p class="question-text">
+                Quelle limite principale avez-vous identifiée dans l'utilisation de LLM locaux
+                par rapport aux modèles cloud ?
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6.3 Pour aller plus loin -->
+        <section class="content-section">
+          <div class="section-number">6.3</div>
+          <h2>Pour aller plus loin</h2>
+          <div class="further-grid">
+            <div class="further-card">
+              <h4>🌊 Streaming token par token</h4>
+              <p>Utiliser <code>stream: true</code> + <code>ReadableStream</code> pour afficher les tokens au fur et à mesure.</p>
+            </div>
+            <div class="further-card">
+              <h4>👁️ Modèles spécialisés</h4>
+              <p><code>codellama</code> (code pur), <code>moondream</code> (vision multimodale), <code>nomic-embed-text</code> (embeddings).</p>
+            </div>
+            <div class="further-card">
+              <h4>🐳 Open WebUI</h4>
+              <p>Interface web complète pour Ollama (Docker) — clone de ChatGPT en local.</p>
+            </div>
+            <div class="further-card">
+              <h4>🔒 Ollama comme proxy</h4>
+              <p>Intégrer Ollama + PHP/Node.js comme proxy sécurisé dans une app web.</p>
+            </div>
+            <div class="further-card">
+              <h4>⚡ Continue : onglet Actions</h4>
+              <p>Automatiser des workflows de code répétitifs directement dans VS Code.</p>
+            </div>
+            <div class="further-card">
+              <h4>🔗 LangChain.js + Ollama</h4>
+              <p>Chaînes de prompts avancées, RAG (Retrieval-Augmented Generation) en local.</p>
+            </div>
+          </div>
+
+          <h3>Ressources</h3>
+          <table class="resources-table">
+            <thead>
+              <tr><th>Ressource</th><th>URL</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Documentation Ollama</td>
+                <td><a href="https://ollama.com/docs" target="_blank">ollama.com/docs</a></td>
+              </tr>
+              <tr>
+                <td>Bibliothèque de modèles</td>
+                <td><a href="https://ollama.com/library" target="_blank">ollama.com/library</a></td>
+              </tr>
+              <tr>
+                <td>Documentation Continue</td>
+                <td><a href="https://docs.continue.dev/intro" target="_blank">docs.continue.dev/intro</a></td>
+              </tr>
+              <tr>
+                <td>API Ollama — référence complète</td>
+                <td><a href="https://github.com/ollama/ollama/blob/main/docs/api.md" target="_blank">github.com/ollama/ollama/blob/main/docs/api.md</a></td>
+              </tr>
+              <tr>
+                <td>Open WebUI (interface Docker)</td>
+                <td><a href="https://openwebui.com" target="_blank">openwebui.com</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Bravo -->
+        <div class="congrats-box">
+          <h3>🎉 TD3 terminé !</h3>
+          <p>
+            Vous avez installé Ollama, configuré Continue, consommé l'API REST et comparé 3 modèles open-source.
+            Vous disposez maintenant d'un environnement IA local complet, sans cloud et sans coût.
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Récapituler le TD</h2>
+          <div class="cta-buttons">
+            <a href="TD3-index.html" class="btn">Retour à l'accueil TD3</a>
+            <a href="index.html" class="btn btn-secondary">Retour à l'accueil général</a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      // Étoiles interactives pour le tableau de notation
+      document.querySelectorAll('.star-rating').forEach(container => {
+        const model = container.dataset.model;
+        const crit = container.dataset.crit;
+        const key = `rating-${model}-${crit}`;
+
+        // Créer 5 étoiles (cercles)
+        for (let i = 1; i <= 5; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.dataset.value = i;
+          star.title = `Note : ${i}/5`;
+
+          star.addEventListener('click', () => {
+            const current = parseInt(localStorage.getItem(key) || '0');
+            const newVal = (current === i) ? 0 : i;
+            localStorage.setItem(key, newVal);
+            updateStars(container, newVal);
+          });
+
+          container.appendChild(star);
+        }
+
+        // Restaurer depuis localStorage
+        const saved = parseInt(localStorage.getItem(key) || '0');
+        updateStars(container, saved);
+      });
+
+      function updateStars(container, value) {
+        container.querySelectorAll('.star').forEach(star => {
+          star.classList.toggle('filled', parseInt(star.dataset.value) <= value);
+        });
+      }
+    </script>
+  </body>
+</html>

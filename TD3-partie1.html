@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partie 1 - Installation d'Ollama | TD3</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .step-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #7c3aed, #1e5aa8);
+        color: white;
+        padding: 3px 14px;
+        border-radius: 12px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin-bottom: var(--spacing-sm);
+        letter-spacing: 0.5px;
+      }
+
+      .os-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .os-table thead {
+        background: #7c3aed;
+        color: white;
+      }
+      .os-table th,
+      .os-table td {
+        padding: var(--spacing-md);
+        text-align: left;
+      }
+      .os-table td {
+        border-bottom: 1px solid var(--color-border);
+      }
+      .os-table tbody tr:hover {
+        background: var(--color-light);
+      }
+      .os-table td code {
+        background: #ede9fe;
+        color: #7c3aed;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      .success-box {
+        background: #d4edda;
+        border-left: 4px solid #1a7a3c;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .success-box strong {
+        color: #1a7a3c;
+      }
+
+      .obs-box {
+        background: #fff3cd;
+        border-left: 4px solid #f59e0b;
+        border-radius: 8px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .obs-box strong {
+        color: #92400e;
+      }
+
+      .section-number {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #7c3aed;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: var(--spacing-xs);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>TD3</h1>
+            <p class="subtitle">Ollama + Continue · LLM Locaux</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="TD3-index.html">Accueil TD3</a></li>
+            <li><a href="TD3-intro.html">Introduction</a></li>
+            <li>
+              <a href="TD3-partie1.html" class="active">1 · Installation</a>
+            </li>
+            <li><a href="TD3-partie2.html">2 · Continue</a></li>
+            <li><a href="TD3-partie3.html">3 · API REST</a></li>
+            <li><a href="TD3-partie4.html">4 · Chat</a></li>
+            <li><a href="TD3-partie5.html">5 · Comparateur</a></li>
+            <li><a href="TD3-bilan.html">Bilan</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Partie 1 — Installation d'Ollama</h2>
+            <p>
+              Déployer Ollama et télécharger les 3 modèles open-source en local.
+              Suivez les étapes selon votre système d'exploitation.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">30 min</span>
+              <span class="meta-item">Terminal requis</span>
+              <span class="meta-item">~11 Go à télécharger</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1.1 Installer Ollama -->
+        <section class="content-section">
+          <div class="section-number">1.1</div>
+          <h2>Installer Ollama</h2>
+          <p>
+            Rendez-vous sur
+            <a href="https://ollama.com/download" target="_blank"
+              >ollama.com/download</a
+            >
+            et choisissez votre plateforme, ou utilisez la commande
+            correspondante :
+          </p>
+          <table class="os-table">
+            <thead>
+              <tr>
+                <th>Système</th>
+                <th>Commande / Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🍎 <strong>macOS</strong></td>
+                <td><code>brew install ollama</code></td>
+              </tr>
+              <tr>
+                <td>🐧 <strong>Linux</strong></td>
+                <td>
+                  <code>curl -fsSL https://ollama.com/install.sh | sh</code>
+                </td>
+              </tr>
+              <tr>
+                <td>🪟 <strong>Windows</strong></td>
+                <td>
+                  Télécharger et exécuter <code>OllamaSetup.exe</code> depuis
+                  ollama.com/download
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 1.2 Démarrer le serveur -->
+        <section class="content-section">
+          <div class="section-number">1.2</div>
+          <h2>Démarrer le serveur Ollama</h2>
+          <p>
+            Ollama s'exécute en arrière-plan et expose une
+            <strong>API REST sur le port 11434</strong>. Vérifiez qu'il est
+            actif :
+          </p>
+          <div class="code-block">
+            <pre>
+# Sur macOS / Linux - démarrage manuel si nécessaire
+ollama serve
+
+# Vérification dans un autre terminal
+curl http://localhost:11434
+# Réponse attendue : Ollama is running</pre
+            >
+          </div>
+          <div class="success-box">
+            <strong>✅ Résultat attendu</strong><br />
+            La commande <code>curl</code> renvoie :
+            <em>"Ollama is running"</em> — le serveur est prêt à recevoir des
+            requêtes.
+          </div>
+          <div class="tip-box">
+            <strong>💡 Windows :</strong> Ollama démarre automatiquement après
+            installation. Cherchez l'icône dans la barre système (🦙). Sur
+            macOS, il démarre aussi automatiquement au login si vous utilisez
+            l'application native.
+          </div>
+        </section>
+
+        <!-- 1.3 Télécharger les modèles -->
+        <section class="content-section">
+          <div class="section-number">1.3</div>
+          <h2>Télécharger les 3 modèles</h2>
+          <p>
+            Chaque modèle est téléchargé une seule fois et mis en cache
+            localement. Comptez <strong>5 à 15 minutes</strong> selon votre
+            connexion. Vous pouvez lancer les 3 pulls successivement.
+          </p>
+          <div class="code-block">
+            <pre>
+# Modèle 1 : Mistral 7B - performant, équilibré (~4 Go)
+ollama pull mistral:7b
+
+# Modèle 2 : Qwen3.1 7B - multilingue, structuré (~5 Go)
+ollama pull qwen3:latest
+
+# Modèle 3 : Llama 3.2 3B - léger, rapide (~2 Go)
+ollama pull llama3.2:latest</pre
+            >
+          </div>
+          <div class="card-container">
+            <div class="concept-card">
+              <h3>🇫🇷 Mistral 7B</h3>
+              <p>
+                ~4 Go — Rapide, excellent en code et raisonnement, très bon
+                instruction-following.
+              </p>
+            </div>
+            <div class="concept-card">
+              <h3>🌍 Qwen3 7B</h3>
+              <p>
+                ~5 Go — Multilingue FR/EN, très bon en texte structuré et
+                analyse.
+              </p>
+            </div>
+            <div class="concept-card">
+              <h3>⚡ Llama 3.2 3B</h3>
+              <p>
+                ~2 Go — Léger, rapide, idéal pour les machines moins puissantes.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1.4 Premier test CLI -->
+        <section class="content-section">
+          <div class="section-number">1.4</div>
+          <h2>Premier test rapide en CLI</h2>
+          <p>
+            Pendant que les autres modèles se téléchargent, testez le premier
+            disponible directement dans le terminal :
+          </p>
+          <div class="code-block">
+            <pre>
+# Lancer une session interactive avec Mistral
+ollama run mistral
+>>> Explique-moi ce qu'est un LLM en 3 lignes.
+
+# Tester Qwen2.5 (multilingue)
+ollama run qwen2.5
+>>> Quel est ton point fort par rapport aux autres modèles ?
+
+# Tester Llama3.2 (léger)
+ollama run llama3.2
+>>> Donne-moi une définition simple du machine learning.
+
+# Quitter la session interactive
+/bye</pre
+            >
+          </div>
+          <div class="obs-box">
+            <strong>📝 Observation à noter</strong><br />
+            Notez les différences de vitesse et de style de réponse entre les 3
+            modèles. Ces premières impressions seront à comparer en Partie 5.
+          </div>
+        </section>
+
+        <!-- 1.5 Vérifier les modèles -->
+        <section class="content-section">
+          <div class="section-number">1.5</div>
+          <h2>Vérifier les modèles installés</h2>
+          <div class="code-block">
+            <pre>
+# Lister tous les modèles disponibles localement
+ollama list
+
+# Détail d'un modèle (taille, paramètres, famille)
+ollama show mistral</pre
+            >
+          </div>
+          <p>
+            La commande <code>ollama list</code> doit afficher les 3 modèles
+            avec leur taille et la date de leur téléchargement. Si un modèle
+            manque, relancez le <code>ollama pull</code> correspondant.
+          </p>
+
+          <!-- Checklist de validation -->
+          <h3>Checklist de validation</h3>
+          <div class="checklist">
+            <label class="checkbox-item">
+              <input type="checkbox" />
+              <span
+                >Ollama est installé :
+                <code>ollama --version</code> répond</span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" />
+              <span
+                >Le serveur répond : <code>curl http://localhost:11434</code> →
+                <em>Ollama is running</em></span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" />
+              <span
+                >Mistral téléchargé :
+                <code>ollama pull mistral</code> complété</span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" />
+              <span
+                >Qwen2.5 téléchargé :
+                <code>ollama pull qwen2.5</code> complété</span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" />
+              <span
+                >Llama3.2 téléchargé :
+                <code>ollama pull llama3.2</code> complété</span
+              >
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" />
+              <span
+                >Test CLI réussi avec au moins un modèle (<code
+                  >ollama run mistral</code
+                >)</span
+              >
+            </label>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Ollama est prêt !</h2>
+          <div class="cta-buttons">
+            <a href="TD3-partie2.html" class="btn"
+              >Partie 2 : Configurer Continue</a
+            >
+            <a href="TD3-intro.html" class="btn btn-secondary"
+              >Revenir à l'introduction</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
