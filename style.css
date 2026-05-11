@@ -77,6 +77,18 @@ body {
 
 .logo {
   display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.header-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text {
+  display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
 }
@@ -1150,6 +1162,10 @@ body {
     padding: 0 var(--spacing-sm);
   }
 
+  .header-logo {
+    height: 45px;
+  }
+
   .logo h1 {
     font-size: 1.5rem;
   }
@@ -1205,8 +1221,11 @@ body {
     padding: var(--spacing-lg) var(--spacing-md);
   }
 
+  .header-logo {
+    height: 40px;
+  }
+
   .logo {
-    flex-direction: row;
     gap: var(--spacing-sm);
   }
 

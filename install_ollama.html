@@ -1,0 +1,1874 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R602 - Ollama & Continue - Installation</title>
+    <style>
+      /* ==========================================
+   R602 TP PROMPTING - FEUILLE DE STYLES
+   Design moderne, responsive, accessible
+   ========================================== */
+
+      :root {
+        /* Couleurs primaires */
+        --color-primary: #1e5aa8;
+        --color-secondary: #1a7a3c;
+        --color-accent: #f2a92e;
+
+        /* Couleurs neutres */
+        --color-dark: #1a1a1a;
+        --color-light: #f5f5f5;
+        --color-white: #ffffff;
+        --color-gray: #999999;
+        --color-border: #e0e0e0;
+
+        /* Espaces */
+        --spacing-xs: 0.5rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+
+        /* Typographie */
+        --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        --font-mono: "Courier New", monospace;
+
+        /* Transitions */
+        --transition: all 0.3s ease;
+      }
+
+      /* ========================================== 
+   RESET & STRUCTURE GÉNÉRALE
+   ========================================== */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-main);
+        line-height: 1.6;
+        color: var(--color-dark);
+        background-color: var(--color-white);
+      }
+
+      /* ========================================== 
+   HEADER / NAVIGATION
+   ========================================== */
+
+      .header {
+        background: linear-gradient(
+          135deg,
+          var(--color-primary) 0%,
+          #1a5599 100%
+        );
+        color: var(--color-white);
+        padding: var(--spacing-md) 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+      }
+
+      .header-logo {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+      }
+
+      .logo h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .subtitle {
+        font-size: 0.75rem;
+        opacity: 0.9;
+        font-weight: 300;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-list {
+        display: flex;
+        list-style: none;
+        gap: var(--spacing-md);
+        margin: 0;
+      }
+
+      .nav-list a {
+        color: var(--color-white);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: 4px;
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .nav-list a:hover,
+      .nav-list a.active {
+        background-color: rgba(255, 255, 255, 0.2);
+        text-decoration: underline;
+      }
+
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--color-white);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: var(--spacing-xs);
+      }
+
+      .home-btn {
+        background-color: rgba(242, 169, 46, 0.9);
+        color: var(--color-dark);
+        padding: var(--spacing-xs) var(--spacing-md);
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-left: var(--spacing-md);
+        transition: var(--transition);
+        display: inline-block;
+      }
+
+      .home-btn:hover {
+        background-color: var(--color-accent);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(242, 169, 46, 0.3);
+      }
+
+      /* ========================================== 
+   MAIN CONTENT
+   ========================================== */
+
+      .main {
+        min-height: calc(100vh - 200px);
+        padding: var(--spacing-xl) 0;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+      }
+
+      .main h1 {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-lg);
+        color: var(--color-primary);
+        border-bottom: 3px solid var(--color-primary);
+        padding-bottom: var(--spacing-sm);
+      }
+
+      .main h2 {
+        font-size: 1.8rem;
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+        color: var(--color-primary);
+      }
+
+      .main h3 {
+        font-size: 1.3rem;
+        margin-top: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+        color: var(--color-dark);
+      }
+
+      /* ========================================== 
+   SECTIONS & CONTENT
+   ========================================== */
+
+      .content-section {
+        margin-bottom: var(--spacing-xl);
+        padding: var(--spacing-lg);
+        background-color: var(--color-light);
+        border-radius: 8px;
+        border-left: 4px solid var(--color-primary);
+      }
+
+      .content-section p {
+        margin-bottom: var(--spacing-md);
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      .section-intro {
+        font-size: 1.2rem;
+        color: var(--color-secondary);
+        font-weight: 600;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      /* ========================================== 
+   HERO SECTION
+   ========================================== */
+
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--color-primary) 0%,
+          var(--color-secondary) 100%
+        );
+        color: var(--color-white);
+        padding: var(--spacing-xl) var(--spacing-lg);
+        border-radius: 12px;
+        margin-bottom: var(--spacing-xl);
+        text-align: center;
+      }
+
+      .hero-content h2 {
+        color: var(--color-white);
+        font-size: 2rem;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: var(--spacing-lg);
+        opacity: 0.95;
+      }
+
+      .hero-meta {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+      }
+
+      .meta-item {
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: 20px;
+        font-size: 0.9rem;
+      }
+
+      /* ========================================== 
+   CARDS & GRIDS
+   ========================================== */
+
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .concept-card {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        transition: var(--transition);
+      }
+
+      .concept-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .concept-card h3 {
+        color: var(--color-secondary);
+        margin-bottom: var(--spacing-md);
+      }
+
+      /* Dimensions Grid */
+
+      .dimensions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .dimension-item {
+        background: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        text-align: center;
+        border: 2px solid var(--color-border);
+        transition: var(--transition);
+      }
+
+      .dimension-item:hover {
+        border-color: var(--color-primary);
+        box-shadow: 0 4px 12px rgba(30, 90, 168, 0.1);
+      }
+
+      .dimension-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto var(--spacing-md);
+      }
+
+      .dimension-item h3 {
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      /* ========================================== 
+   CONTEXT BOX
+   ========================================== */
+
+      .context-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .context-item {
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border-left: 4px solid;
+      }
+
+      .context-item.sees {
+        background-color: #d4edda;
+        border-left-color: #1a7a3c;
+      }
+
+      .context-item.unsees {
+        background-color: #f8d7da;
+        border-left-color: #dc3545;
+      }
+
+      .context-item h4 {
+        margin-bottom: var(--spacing-md);
+        font-weight: 600;
+      }
+
+      .context-item ul {
+        list-style: none;
+        padding-left: var(--spacing-sm);
+      }
+
+      .context-item li {
+        margin-bottom: var(--spacing-sm);
+        padding-left: var(--spacing-md);
+        position: relative;
+      }
+
+      .context-item li:before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--color-primary);
+      }
+
+      /* ========================================== 
+   HIGHLIGHTS & LISTS
+   ========================================== */
+
+      .highlight-list {
+        list-style: none;
+        padding: var(--spacing-md);
+        background-color: var(--color-white);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .highlight-list li {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+        background-color: var(--color-light);
+        border-left: 4px solid var(--color-accent);
+        border-radius: 4px;
+      }
+
+      .task-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .task-list li {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+        background-color: var(--color-white);
+        border-left: 4px solid var(--color-secondary);
+        border-radius: 4px;
+      }
+
+      /* ========================================== 
+   EXERCISES
+   ========================================== */
+
+      .exercise {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-xl);
+        border-radius: 8px;
+        border: 2px solid var(--color-border);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .exercise-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-lg);
+        padding-bottom: var(--spacing-md);
+        border-bottom: 2px solid var(--color-border);
+      }
+
+      .exercise-number {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .exercise-content h3 {
+        color: var(--color-secondary);
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .exercise-content h3:first-of-type {
+        margin-top: 0;
+      }
+
+      /* ========================================== 
+   CODE BLOCKS
+   ========================================== */
+
+      .code-block {
+        background-color: var(--color-dark);
+        color: #e0e0e0;
+        padding: var(--spacing-md);
+        border-radius: 6px;
+        overflow-x: auto;
+        margin: var(--spacing-md) 0;
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .code-block pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      /* ========================================== 
+   TABLES
+   ========================================== */
+
+      .table-responsive {
+        overflow-x: auto;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .crtfc-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .crtfc-table thead {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+      }
+
+      .crtfc-table th {
+        padding: var(--spacing-md);
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .crtfc-table td {
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .crtfc-table tbody tr:hover {
+        background-color: var(--color-light);
+      }
+
+      .crtfc-table .letter {
+        font-weight: 700;
+        color: var(--color-primary);
+        font-size: 1.2rem;
+      }
+
+      .crtfc-table .meaning {
+        font-weight: 600;
+        color: var(--color-secondary);
+      }
+
+      .crtfc-table .example {
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        color: var(--color-gray);
+      }
+
+      /* ========================================== 
+   COMPARISON
+   ========================================== */
+
+      .comparison-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .comparison-item {
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border-left: 4px solid;
+      }
+
+      .comparison-item.bad {
+        background-color: #f8d7da;
+        border-left-color: #dc3545;
+      }
+
+      .comparison-item.good {
+        background-color: #d4edda;
+        border-left-color: #1a7a3c;
+      }
+
+      .comparison-item h3 {
+        margin-bottom: var(--spacing-md);
+      }
+
+      .quote {
+        font-style: italic;
+        padding: var(--spacing-md);
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .consequence {
+        padding: var(--spacing-md);
+        background-color: rgba(0, 0, 0, 0.03);
+        border-radius: 4px;
+        font-size: 0.95rem;
+      }
+
+      /* ========================================== 
+   TIPS & BOXES
+   ========================================== */
+
+      .tip-box {
+        background-color: #e3f2fd;
+        border-left: 4px solid var(--color-primary);
+        padding: var(--spacing-md);
+        border-radius: 4px;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .tip-card {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        text-align: center;
+      }
+
+      .tip-card h4 {
+        color: var(--color-secondary);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      /* ========================================== 
+   PROGRESSIVE PROMPTS
+   ========================================== */
+
+      .progressive-prompts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .prompt-step {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 2px solid var(--color-border);
+      }
+
+      .prompt-step h4 {
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-md);
+      }
+
+      /* ========================================== 
+   TOOLS & COMMANDS
+   ========================================== */
+
+      .commands-list {
+        display: grid;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .command-item {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border-left: 4px solid var(--color-primary);
+      }
+
+      .command-item h3 {
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-sm);
+        font-family: var(--font-mono);
+      }
+
+      .example-box {
+        background-color: var(--color-light);
+        padding: var(--spacing-md);
+        border-radius: 4px;
+        margin-top: var(--spacing-md);
+        font-size: 0.95rem;
+      }
+
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .tool-card {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 2px solid var(--color-border);
+      }
+
+      .tool-card h3 {
+        color: var(--color-secondary);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .tool-card p {
+        margin-bottom: var(--spacing-sm);
+        font-size: 0.95rem;
+      }
+
+      /* ========================================== 
+   SCENARIOS & WORKFLOWS
+   ========================================== */
+
+      .scenarios-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .scenario-card {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+      }
+
+      .scenario-card h3 {
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .workflow-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .step {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        text-align: center;
+      }
+
+      .step-number {
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin: 0 auto var(--spacing-md);
+      }
+
+      /* ========================================== 
+   ANTIPATTERNS & PITFALLS
+   ========================================== */
+
+      .antipatterns-list {
+        display: grid;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .antipattern {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border-left: 4px solid #dc3545;
+      }
+
+      .antipattern h3 {
+        color: #dc3545;
+      }
+
+      .bad-example {
+        font-family: var(--font-mono);
+        background-color: #f8d7da;
+        padding: var(--spacing-md);
+        border-radius: 4px;
+        margin: var(--spacing-md) 0;
+        color: #721c24;
+      }
+
+      .pitfalls-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .pitfall {
+        background-color: #f8d7da;
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border-left: 4px solid #dc3545;
+      }
+
+      .pitfall h3 {
+        color: #721c24;
+        margin-bottom: var(--spacing-md);
+      }
+
+      /* ========================================== 
+   PRINCIPLES & CHECKLIST
+   ========================================== */
+
+      .principles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .principle-card {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 2px solid var(--color-border);
+        position: relative;
+        padding-left: var(--spacing-xl);
+      }
+
+      .principle-number {
+        position: absolute;
+        left: var(--spacing-md);
+        top: var(--spacing-md);
+        width: 35px;
+        height: 35px;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      .principle-card h3 {
+        color: var(--color-secondary);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .checklist {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        cursor: pointer;
+        padding: var(--spacing-sm);
+        border-radius: 4px;
+        transition: var(--transition);
+      }
+
+      .checkbox-item:hover {
+        background-color: var(--color-light);
+      }
+
+      .checkbox-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+      }
+
+      /* ========================================== 
+   TEMPLATES
+   ========================================== */
+
+      .templates-container {
+        display: grid;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .template {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 2px solid var(--color-border);
+      }
+
+      .template h3 {
+        color: var(--color-secondary);
+        margin-bottom: var(--spacing-md);
+      }
+
+      /* ========================================== 
+   COMPARISON TABLE
+   ========================================== */
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .comparison-table th {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        padding: var(--spacing-md);
+        text-align: left;
+      }
+
+      .comparison-table td {
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .comparison-table tbody tr:hover {
+        background-color: var(--color-light);
+      }
+
+      /* ========================================== 
+   BUTTONS
+   ========================================== */
+
+      .btn {
+        display: inline-block;
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+      }
+
+      .btn-primary:hover {
+        background-color: #134a8a;
+        box-shadow: 0 4px 12px rgba(30, 90, 168, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background-color: var(--color-secondary);
+        color: var(--color-white);
+      }
+
+      .btn-secondary:hover {
+        background-color: #0f5c2c;
+        box-shadow: 0 4px 12px rgba(26, 122, 60, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* ========================================== 
+   CTA SECTION
+   ========================================== */
+
+      .cta-section {
+        background: linear-gradient(
+          135deg,
+          var(--color-primary) 0%,
+          var(--color-secondary) 100%
+        );
+        color: var(--color-white);
+        padding: var(--spacing-xl);
+        border-radius: 12px;
+        text-align: center;
+        margin-top: var(--spacing-xl);
+      }
+
+      .cta-section h2 {
+        color: var(--color-white);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+      }
+
+      .cta-buttons .btn {
+        background-color: var(--color-accent);
+        color: var(--color-dark);
+      }
+
+      .cta-buttons .btn:hover {
+        background-color: #f0942b;
+        box-shadow: 0 4px 12px rgba(242, 169, 46, 0.3);
+      }
+
+      .cta-buttons .btn-secondary {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: var(--color-white);
+      }
+
+      .cta-buttons .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ========================================== 
+   CONCLUSION
+   ========================================== */
+
+      .conclusion {
+        background: linear-gradient(
+          135deg,
+          #d4edda 0%,
+          #e3f2fd 100%
+        ) !important;
+        border-left-color: var(--color-secondary) !important;
+      }
+
+      .conclusion-text p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .conclusion-text p strong {
+        color: var(--color-primary);
+      }
+
+      /* ========================================== 
+   RESOURCES
+   ========================================== */
+
+      .resources-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .resource {
+        background-color: var(--color-white);
+        padding: var(--spacing-lg);
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+      }
+
+      .resource h4 {
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-md);
+        font-size: 1.1rem;
+      }
+
+      .resource p {
+        margin-bottom: var(--spacing-sm);
+        font-size: 0.95rem;
+      }
+
+      /* ========================================== 
+   FOOTER
+   ========================================== */
+
+      .footer {
+        background-color: var(--color-dark);
+        color: var(--color-white);
+        text-align: center;
+        padding: var(--spacing-lg);
+        margin-top: var(--spacing-xl);
+      }
+
+      .footer p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      /* ========================================== 
+   RESPONSIVE DESIGN
+   ========================================== */
+
+      @media (max-width: 768px) {
+        /* Header */
+        .nav-list {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background-color: rgba(30, 90, 168, 0.95);
+          gap: 0;
+          padding: var(--spacing-md);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-list.active {
+          display: flex;
+        }
+
+        .nav-list li {
+          width: 100%;
+        }
+
+        .nav-list a {
+          display: block;
+          padding: var(--spacing-md);
+        }
+
+        .menu-toggle {
+          display: block;
+        }
+
+        /* Typography */
+        .main h1 {
+          font-size: 2rem;
+        }
+
+        .main h2 {
+          font-size: 1.5rem;
+        }
+
+        /* Grids */
+        .card-container,
+        .dimensions-grid,
+        .comparison-container,
+        .tips-grid,
+        .scenarios-grid,
+        .principles-grid,
+        .tools-grid,
+        .antipatterns-list,
+        .pitfalls-container,
+        .resources-list,
+        .progressive-prompts {
+          grid-template-columns: 1fr;
+        }
+
+        .context-box {
+          grid-template-columns: 1fr;
+        }
+
+        .workflow-steps {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+          flex-direction: column;
+        }
+
+        .cta-buttons .btn {
+          width: 100%;
+        }
+
+        /* Code blocks */
+        .code-block {
+          font-size: 0.8rem;
+        }
+
+        /* Spacing */
+        .container {
+          padding: 0 var(--spacing-sm);
+        }
+
+        .content-section {
+          padding: var(--spacing-md);
+        }
+
+        .header-content {
+          padding: 0 var(--spacing-sm);
+        }
+
+        .header-logo {
+          height: 45px;
+        }
+
+        .logo h1 {
+          font-size: 1.5rem;
+        }
+
+        .subtitle {
+          font-size: 0.65rem;
+        }
+
+        .nav-list {
+          gap: 0;
+        }
+
+        .hero {
+          padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        .hero-content h2 {
+          font-size: 1.5rem;
+        }
+
+        .exercise {
+          padding: var(--spacing-md);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main h1 {
+          font-size: 1.5rem;
+        }
+
+        .main h2 {
+          font-size: 1.2rem;
+        }
+
+        .main h3 {
+          font-size: 1.1rem;
+        }
+
+        .hero-meta {
+          flex-direction: column;
+        }
+
+        .meta-item {
+          width: 100%;
+          text-align: center;
+        }
+
+        .workflow-steps {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-section {
+          padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        .logo {
+          gap: var(--spacing-sm);
+        }
+
+        .header-logo {
+          height: 40px;
+        }
+
+        .logo h1 {
+          font-size: 1.3rem;
+        }
+      }
+
+      /* ========================================== 
+   PRINT STYLES
+   ========================================== */
+
+      @media print {
+        .header,
+        .nav,
+        .menu-toggle,
+        .cta-section {
+          display: none;
+        }
+
+        body {
+          font-size: 12pt;
+          line-height: 1.5;
+        }
+
+        .container {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Bandeau de navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo_IUT.png" alt="Logo IUT" class="header-logo" />
+          <img src="logo mmi.png" alt="Logo MMI" class="header-logo" />
+          <div class="logo-text">
+            <h1>R602</h1>
+            <p class="subtitle">Prompter une IA pour coder</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <ul class="nav-list" id="navList">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="methode.html">Méthode CRTFC</a></li>
+            <li><a href="exercices-web.html">Exercices Web</a></li>
+            <li><a href="exercices-dispositifs.html">Dispositifs</a></li>
+            <li><a href="copilot-avance.html">Copilot Avancé</a></li>
+            <li><a href="synthese.html">Synthèse</a></li>
+          </ul>
+        </nav>
+        <a href="index.html" class="home-btn">← Retour accueil</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+          <div class="hero-content">
+            <h2>Développer avec l'IA en local</h2>
+            <p>
+              Installer <strong>Ollama</strong> et l'extension
+              <strong>Continue</strong>
+              pour faire tourner un LLM directement sur votre machine, sans
+              cloud.
+            </p>
+            <div class="hero-meta">
+              <span class="meta-item">🦙 Ollama + LLaMA 3</span>
+              <span class="meta-item">🧩 Extension VS Code</span>
+              <span class="meta-item">🔒 100 % local</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Qu'est-ce qu'Ollama -->
+        <section class="content-section">
+          <h2>Qu'est-ce qu'Ollama ?</h2>
+          <p>
+            <strong>Ollama</strong> est un outil facile à utiliser, conçu pour
+            faire fonctionner des modèles de langage de grande taille (LLM)
+            directement et localement sur votre ordinateur. Il est à la fois
+            rapide et léger.
+          </p>
+          <p>
+            Contrairement à ChatGPT ou Claude, vos données ne quittent jamais
+            votre machine — un avantage majeur pour les projets sensibles ou les
+            environnements sans accès à Internet.
+          </p>
+          <div class="card-container">
+            <div class="concept-card">
+              <h3>⚡ Rapide et léger</h3>
+              <p>
+                Optimisé CPU/GPU. Utilisable même sans carte graphique dédiée.
+              </p>
+            </div>
+            <div class="concept-card">
+              <h3>🔒 Totalement local</h3>
+              <p>
+                Aucune donnée envoyée sur Internet. Idéal pour les réseaux
+                restreints.
+              </p>
+            </div>
+            <div class="concept-card">
+              <h3>🧩 Intégrable à VS Code</h3>
+              <p>
+                Via l'extension <strong>Continue</strong>, Ollama s'intègre
+                directement dans votre éditeur.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Ce qu'on peut faire -->
+        <section class="content-section">
+          <h2>Ce que vous pouvez faire avec Ollama + Continue</h2>
+          <div class="dimensions-grid">
+            <div class="dimension-item">
+              <div class="dimension-icon">🐛</div>
+              <h3>Bug fix</h3>
+              <p>
+                Détection et correction d'erreurs de syntaxe ou de logique dans
+                votre code.
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">⚙️</div>
+              <h3>Optimisation</h3>
+              <p>
+                Suggestions pour améliorer les performances ou la lisibilité du
+                code source.
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">📖</div>
+              <h3>Explication</h3>
+              <p>
+                Demandez à l'IA d'expliquer un bloc de code complexe en langage
+                naturel.
+              </p>
+            </div>
+            <div class="dimension-item">
+              <div class="dimension-icon">💬</div>
+              <h3>Message de commit</h3>
+              <p>
+                Génération automatique de messages de commit clairs et
+                conventionnels.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Étape 1 : Installer Ollama -->
+        <section class="content-section">
+          <h2>Étape 1 — Installer Ollama</h2>
+          <div class="workflow-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h3>Télécharger (Windows)</h3>
+              <p>
+                Rendez-vous sur le site officiel et téléchargez le paquet pour
+                votre OS.
+              </p>
+              <div class="tip-box" style="margin-top: 1rem">
+                🔗
+                <a href="https://ollama.com/download" target="_blank"
+                  >ollama.com/download</a
+                >
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <h3>Installer (macOS)</h3>
+              <p>Si vous avez Homebrew, une seule commande suffit :</p>
+              <div class="code-block"><pre>brew install ollama</pre></div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <h3>Vérifier</h3>
+              <p>Vérifiez que la commande est disponible dans le terminal :</p>
+              <div class="code-block"><pre>ollama --version</pre></div>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>💡 Windows / Linux :</strong> Le site d'Ollama propose des
+            installateurs natifs pour toutes les plateformes. Sur Linux, un
+            script <code>curl</code> suffit.
+          </div>
+        </section>
+
+        <!-- Étape 2 : Télécharger un modèle -->
+        <section class="content-section">
+          <h2>Étape 2 — Télécharger un modèle LLM</h2>
+          <p>
+            Une fois Ollama installé, il faut télécharger un modèle de langage.
+            Nous allons utiliser <strong>LLaMA 3</strong> (Large Language Model
+            Meta AI), une famille de modèles développée par Meta — très
+            performant et peu gourmand en ressources.
+          </p>
+          <p>Ouvrez votre terminal et tapez :</p>
+          <div class="code-block"><pre>ollama pull llama3</pre></div>
+          <p>Une fois téléchargé, testez-le directement en mode chat :</p>
+          <div class="code-block"><pre>ollama run llama3</pre></div>
+          <div class="tip-box">
+            <strong>📚 Autres modèles :</strong> Mistral, Phi, Gemma…
+            disponibles sur
+            <a href="https://ollama.com/library" target="_blank"
+              >ollama.com/library</a
+            >.
+          </div>
+        </section>
+
+        <!-- Étape 3 : Installer Continue -->
+        <section class="content-section">
+          <h2>Étape 3 — Installer l'extension Continue dans VS Code</h2>
+          <p>
+            <strong>Continue</strong> est une extension open-source qui joue le
+            rôle d'un autopilote IA dans VS Code. Elle se connecte à Ollama pour
+            vous permettre de discuter avec le LLM sans quitter votre éditeur.
+          </p>
+          <div class="workflow-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h3>Ouvrir les extensions</h3>
+              <p>Dans VS Code, utilisez le raccourci :</p>
+              <div class="code-block">
+                <pre>
+SHIFT + CMD + X  (macOS)
+SHIFT + CTRL + X (Windows/Linux)</pre
+                >
+              </div>
+              <p style="margin-top: 0.5rem">
+                Ou <em>Préférences → Extensions</em>.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <h3>Rechercher Continue</h3>
+              <p>
+                Tapez <strong>Continue</strong> dans la barre de recherche et
+                installez l'extension
+                <em>Continue – Codestral, GPT-4o, and more</em>.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <h3>Configurer le modèle</h3>
+              <p>
+                Dans le panneau Continue :
+                <strong>Add a model → Ollama → Autodetect</strong>.
+                <em>Llama3</em> devrait apparaître dans la liste.
+              </p>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>💡 Conseil :</strong> Continue détecte automatiquement
+            Ollama sur <code>localhost:11434</code>. Pas besoin de clé API.
+          </div>
+        </section>
+
+        <!-- Cloud vs Local -->
+        <section class="content-section">
+          <h2>Cloud vs Local — que choisir ?</h2>
+          <div class="comparison-container">
+            <div class="comparison-item good">
+              <h3>✅ Ollama (local)</h3>
+              <ul class="highlight-list">
+                <li>Données confidentielles, aucun envoi réseau</li>
+                <li>Fonctionne hors ligne (réseau IUT restrictif)</li>
+                <li>Gratuit, sans limite de requêtes</li>
+                <li>Contrôle total sur le modèle utilisé</li>
+              </ul>
+            </div>
+            <div class="comparison-item bad">
+              <h3>⚠️ Limites d'Ollama</h3>
+              <ul class="highlight-list">
+                <li>Performances inférieures aux modèles cloud</li>
+                <li>Nécessite une machine suffisamment puissante</li>
+                <li>Téléchargement initial du modèle (plusieurs Go)</li>
+                <li>Moins adapté aux tâches très complexes</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Vérification -->
+        <section class="content-section">
+          <h2>Vérification de l'installation</h2>
+          <p>
+            Utilisez cette checklist pour vous assurer que tout fonctionne :
+          </p>
+          <div class="context-box">
+            <div class="context-item sees">
+              <h4>✓ Ollama opérationnel</h4>
+              <ul>
+                <li><code>ollama --version</code> répond</li>
+                <li><code>ollama pull llama3</code> complété</li>
+                <li><code>ollama run llama3</code> démarre un chat</li>
+              </ul>
+            </div>
+            <div class="context-item sees">
+              <h4>✓ Continue configuré</h4>
+              <ul>
+                <li>Extension visible dans VS Code</li>
+                <li>Llama3 listé dans le panel Continue</li>
+                <li>Le chat répond à une question de test</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>🚀 Test rapide :</strong> Ouvrez un fichier JS dans VS Code,
+            sélectionnez un bloc de code et demandez à Continue :
+            <em>"Explique ce que fait cette fonction."</em>
+          </div>
+        </section>
+
+        <!-- Ressources -->
+        <section class="content-section conclusion">
+          <h2>Ressources et documentation</h2>
+          <div class="conclusion-text">
+            <p>Quelques ressources pour aller plus loin :</p>
+          </div>
+          <div class="resources-list">
+            <div class="resource">
+              <h4>📚 Documentation Continue</h4>
+              <p>Guide officiel, configuration avancée, modèles supportés.</p>
+              <a href="https://docs.continue.dev/intro" target="_blank"
+                >docs.continue.dev/intro</a
+              >
+            </div>
+            <div class="resource">
+              <h4>🦙 Bibliothèque Ollama</h4>
+              <p>
+                Catalogue de tous les LLM disponibles : Mistral, Phi, Gemma,
+                Code Llama…
+              </p>
+              <a href="https://ollama.com/library" target="_blank"
+                >ollama.com/library</a
+              >
+            </div>
+            <div class="resource">
+              <h4>🔧 Site officiel Ollama</h4>
+              <p>Téléchargement, documentation et API REST intégrée.</p>
+              <a href="https://ollama.com" target="_blank">ollama.com</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+          <h2>Continuez votre apprentissage</h2>
+          <div class="cta-buttons">
+            <a href="methode.html" class="btn btn-primary">Méthode CRTFC</a>
+            <a href="exercices-web.html" class="btn btn-secondary"
+              >Exercices Web</a
+            >
+            <a href="index.html" class="btn btn-secondary"
+              >Retour à l'accueil</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; 2026 IUT MMI Béziers - MAURIN N. - R602 Développement Web &amp;
+        Dispositifs Interactifs
+      </p>
+    </footer>
+
+    <script>
+      /**
+       * R602 - TP PROMPTING
+       * Fichier JavaScript pour les interactions
+       */
+
+      // ================================================
+      // GESTION DU MENU MOBILE
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menuToggle");
+        const navList = document.getElementById("navList");
+
+        // Toggle du menu au clic sur le bouton hamburger
+        if (menuToggle) {
+          menuToggle.addEventListener("click", function () {
+            navList.classList.toggle("active");
+          });
+        }
+
+        // Fermer le menu si on clique sur un lien
+        if (navList) {
+          const navLinks = navList.querySelectorAll("a");
+          navLinks.forEach((link) => {
+            link.addEventListener("click", function () {
+              navList.classList.remove("active");
+            });
+          });
+        }
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener("click", function (event) {
+          const header = document.querySelector(".header");
+          if (!header.contains(event.target)) {
+            if (navList) {
+              navList.classList.remove("active");
+            }
+          }
+        });
+      });
+
+      // ================================================
+      // GESTION DES CHECKBOXES (synthèse)
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll(
+          '.checkbox-item input[type="checkbox"]',
+        );
+
+        checkboxes.forEach((checkbox) => {
+          // Charger l'état depuis localStorage
+          const index = Array.from(checkboxes).indexOf(checkbox);
+          const saved = localStorage.getItem(`checklist-item-${index}`);
+          if (saved) {
+            checkbox.checked = JSON.parse(saved);
+          }
+
+          // Sauvegarder au changement
+          checkbox.addEventListener("change", function () {
+            localStorage.setItem(
+              `checklist-item-${index}`,
+              JSON.stringify(this.checked),
+            );
+          });
+        });
+      });
+
+      // ================================================
+      // ACTIVE NAV LINK (détection automatique)
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentPage =
+          window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll(".nav-list a");
+
+        navLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          if (
+            href === currentPage ||
+            (href === "index.html" && currentPage === "")
+          ) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      });
+
+      // ================================================
+      // SMOOTH SCROLL (amélioration de la transition)
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Ajouter des animations subtiles au scroll
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        }, observerOptions);
+
+        // Observer les sections de contenu
+        const sections = document.querySelectorAll(
+          ".content-section, .exercise, .concept-card, .tool-card",
+        );
+        sections.forEach((section) => {
+          section.style.opacity = "0";
+          section.style.transform = "translateY(20px)";
+          section.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          observer.observe(section);
+        });
+      });
+
+      // ================================================
+      // RESPONSIVE CODE BLOCKS
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const codeBlocks = document.querySelectorAll(".code-block");
+
+        codeBlocks.forEach((block) => {
+          // Ajouter un boutton copy (optionnel)
+          const copyBtn = document.createElement("button");
+          copyBtn.className = "copy-btn";
+          copyBtn.innerHTML = "📋 Copier";
+          copyBtn.style.cssText = `
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+
+          block.style.position = "relative";
+          block.appendChild(copyBtn);
+
+          block.addEventListener("mouseenter", () => {
+            copyBtn.style.opacity = "1";
+          });
+
+          block.addEventListener("mouseleave", () => {
+            copyBtn.style.opacity = "0";
+          });
+
+          copyBtn.addEventListener("click", () => {
+            const text = block.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+              copyBtn.innerHTML = "✓ Copié !";
+              setTimeout(() => {
+                copyBtn.innerHTML = "📋 Copier";
+              }, 2000);
+            });
+          });
+        });
+      });
+
+      // ================================================
+      // ANALYTICS DE SCROLL (bonus)
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        let scrollProgress = 0;
+
+        window.addEventListener("scroll", function () {
+          const windowHeight = window.innerHeight;
+          const docHeight = document.documentElement.scrollHeight;
+          const scrollTop = window.scrollY;
+          scrollProgress = (scrollTop / (docHeight - windowHeight)) * 100;
+        });
+      });
+
+      // ================================================
+      // AMÉLIORATION DU CONTRASTE (accessibilité)
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Détecte le thème préféré de l'utilisateur
+        if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          // L'utilisateur préfère le mode sombre (optionnel à implémenter)
+        }
+
+        // Détecte les préférences de mouvement
+        if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          // Réduire les animations pour les utilisateurs sensibles
+          document.documentElement.style.scrollBehavior = "auto";
+          const elements = document.querySelectorAll('[style*="transition"]');
+          elements.forEach((el) => {
+            el.style.transition = "none";
+          });
+        }
+      });
+
+      // ================================================
+      // GESTION DES TABLES RESPONSIVES
+      // ================================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const tables = document.querySelectorAll(
+          ".crtfc-table, .comparison-table",
+        );
+
+        tables.forEach((table) => {
+          const wrapper = document.createElement("div");
+          wrapper.className = "table-responsive";
+          table.parentNode.replaceChild(wrapper, table);
+          wrapper.appendChild(table);
+        });
+      });
+
+      // ================================================
+      // KEYBOARD NAVIGATION (accessibilité)
+      // ================================================
+
+      document.addEventListener("keydown", function (e) {
+        // Escape pour fermer le menu mobile
+        if (e.key === "Escape") {
+          const navList = document.getElementById("navList");
+          if (navList) {
+            navList.classList.remove("active");
+          }
+        }
+      });
+
+      // ================================================
+      // INITIALISATION AU CHARGEMENT
+      // ================================================
+
+      console.log("R602 - TP Prompting : Site chargé avec succès !");
+      console.log(
+        "Pages disponibles : Accueil, Méthode CRTFC, Exercices Web, Dispositifs, Copilot Avancé, Synthèse",
+      );
+    </script>
+  </body>
+</html>
