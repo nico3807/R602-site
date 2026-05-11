@@ -131,6 +131,25 @@ body {
   padding: var(--spacing-xs);
 }
 
+.home-btn {
+  background-color: rgba(242, 169, 46, 0.9);
+  color: var(--color-dark);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-left: var(--spacing-md);
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.home-btn:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(242, 169, 46, 0.3);
+}
+
 /* ========================================== 
    MAIN CONTENT
    ========================================== */
